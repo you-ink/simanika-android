@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="10dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="80dp"
+        app:cardBackgroundColor="@color/black">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/stars"
+                android:adjustViewBounds="true"
+                android:layout_above="@id/shapeDivider"
+                android:layout_centerHorizontal="true"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/no_internet"
+                android:adjustViewBounds="true"
+                android:layout_above="@id/shapeDivider"
+                android:layout_centerHorizontal="true"/>
+
+            <ImageView
+                android:id="@+id/shapeDivider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:src="@drawable/wave"/>
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/shapeDivider"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/noInternetTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/hammersmith_one"
+                    android:gravity="center"
+                    android:text="No Internet Connection"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
+                
+                <TextView
+                    android:layout_above="@id/retryBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/noInternetTitle"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:lineSpacingExtra="8dp"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:text="You are not connected to the internet.\nCheck your connection or try again."/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/retryBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="30dp"
+                    android:paddingStart="60dp"
+                    android:paddingEnd="60dp"
+                    android:text="Try Again"
+                    android:textColor="@color/black"
+                    android:background="@drawable/round_stroke_button"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
