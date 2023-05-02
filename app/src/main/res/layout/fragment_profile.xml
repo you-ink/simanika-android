@@ -1,19 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_auth"
     tools:context=".MenuFragment.ProfileFragment">
 
-    <Button
-        android:id="@+id/logout_button"
+    <View
+        android:id="@+id/view2"
+        android:layout_width="377dp"
+        android:layout_height="427dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/white"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="173dp"
+        android:layout_height="142dp"
+        android:src="@drawable/active_person_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="66dp" />
+
+    <TextView
+        android:id="@+id/Accounn_Detail"
+        android:layout_width="101dp"
+        android:layout_height="27dp"
+        android:text="Account Details"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="225dp" />
+
+    <TextView
+        android:id="@+id/Nama_Lengkap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Logout"
-        android:padding="15dp"
-        android:textStyle="bold"
-        android:backgroundTint="@color/main"
-        android:textSize="20sp"/>
+        android:text="Nama Lengkap"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="280dp" />
+    <TextView
+        android:id="@+id/NIM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NIM"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="300dp" />
+    <TextView
+        android:id="@+id/Angkatan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Angkatan"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="320dp" />
+    <TextView
+        android:id="@+id/Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="340dp" />
+    <TextView
+        android:id="@+id/No_Telepon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Telepon"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="360dp" />
+    <TextView
+        android:id="@+id/Alamat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alamat"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="380dp" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
