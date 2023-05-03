@@ -2,41 +2,34 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sdsds"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_auth"
+    android:background="@color/white"
     tools:context=".MenuFragment.ProfileFragment">
 
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.06"-->
+    <!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+
     <View
-        android:id="@+id/view2"
-        android:layout_width="377dp"
-        android:layout_height="427dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/white"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="173dp"
-        android:layout_height="142dp"
-        android:src="@drawable/active_person_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="66dp" />
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:background="@drawable/profile"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="1dp" />
 
     <TextView
-        android:id="@+id/Accounn_Detail"
+        android:id="@+id/input_Accounn_Detail"
         android:layout_width="101dp"
         android:layout_height="27dp"
         android:text="Account Details"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="225dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="271dp" />
 
     <TextView
         android:id="@+id/Nama_Lengkap"
@@ -44,47 +37,126 @@
         android:layout_height="wrap_content"
         android:text="Nama Lengkap"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="280dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="309dp" />
+
+    <EditText
+        android:id="@+id/input_Nama_Lengkap"
+        android:layout_width="96dp"
+        android:layout_height="20dp"
+        android:text="Nama Lengkap"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="218dp"
+        tools:layout_editor_absoluteY="309dp" />
+
     <TextView
         android:id="@+id/NIM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NIM"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="300dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="349dp" />
+
+    <EditText
+        android:id="@+id/input_NIM"
+        android:layout_width="101dp"
+        android:layout_height="27dp"
+        android:text="NIM"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="213dp"
+        tools:layout_editor_absoluteY="349dp" />
+
     <TextView
         android:id="@+id/Angkatan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="252dp"
         android:text="Angkatan"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="320dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <EditText
+        android:id="@+id/input_Angkatan"
+        android:layout_width="101dp"
+        android:layout_height="26dp"
+        android:text="Angkatan"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="213dp"
+        tools:layout_editor_absoluteY="386dp" />
+
     <TextView
         android:id="@+id/Email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="340dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="422dp" />
+
+    <EditText
+        android:id="@+id/input_Email"
+        android:layout_width="101dp"
+        android:layout_height="27dp"
+        android:text="Email"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="213dp"
+        tools:layout_editor_absoluteY="422dp" />
+
     <TextView
         android:id="@+id/No_Telepon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No Telepon"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="360dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="457dp" />
+
+    <EditText
+        android:id="@+id/input_No_Telepon"
+        android:layout_width="101dp"
+        android:layout_height="27dp"
+        android:text="No Telepon"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="213dp"
+        tools:layout_editor_absoluteY="449dp" />
+
     <TextView
         android:id="@+id/Alamat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Alamat"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="380dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="499dp" />
+
+    <EditText
+        android:id="@+id/input_Alamat"
+        android:layout_width="101dp"
+        android:layout_height="27dp"
+        android:text="Alamat"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="213dp"
+        tools:layout_editor_absoluteY="490dp" />
+
+    <TextView
+        android:id="@+id/Bukti_Kesanggupan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bukti Kesanggupan"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="581dp" />
+
+    <TextView
+        android:id="@+id/Bukti_Mahasiswa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bukti Mahasiswa"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="240dp"
+        tools:layout_editor_absoluteY="581dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
