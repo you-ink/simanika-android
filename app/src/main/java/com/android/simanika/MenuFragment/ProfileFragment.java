@@ -71,18 +71,18 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        logout_btn = rootview.findViewById(R.id.logout_button);
-        logout_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Preferences.clearLoggedInUser(getActivity().getBaseContext());
-                Activity thisActivity = getActivity();
-                thisActivity.finishAfterTransition();
-
-                Intent intent = new Intent(thisActivity, AuthActivity.class);
-                startActivity(intent);
-            }
-        });
+//        logout_btn = rootview.findViewById(R.id.logout_button);
+//        logout_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Preferences.clearLoggedInUser(getActivity().getBaseContext());
+//                Activity thisActivity = getActivity();
+//                thisActivity.finishAfterTransition();
+//
+//                Intent intent = new Intent(thisActivity, AuthActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         return rootview;
     }
