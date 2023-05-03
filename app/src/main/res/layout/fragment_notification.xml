@@ -5,12 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".MenuFragment.NotificationFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notification"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Notification Fragment"
-        android:textStyle="bold"
-        android:textSize="20sp"/>
+        tools:listitem="@layout/card_notification" />
 
 </FrameLayout>

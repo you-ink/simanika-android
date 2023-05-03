@@ -9,11 +9,52 @@
     app:cardElevation="2dp"
     app:contentPadding="3dp">
 
-    <View
-        android:id="@+id/notification"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:background="@drawable/c30_notification_icon" />
-    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        style="@style/Base.CardView">
 
+        <LinearLayout
+            android:layout_width="287dp"
+            android:layout_height="wrap_content"
+            android:layout_alignalignParentLeft="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nama_notif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="nama rapat"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/info_notif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="informasi ini di buat oleh seseorang yang sedang bingung"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12/08/2021"
+                android:textColor="@color/black"
+                android:textStyle="italic"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+    
 </androidx.cardview.widget.CardView>
