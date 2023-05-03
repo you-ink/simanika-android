@@ -6,7 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.simanika.Adapter.ArticleAdapter;
+import com.android.simanika.Adapter.ArticleData;
 import com.android.simanika.R;
 
 /**
@@ -24,6 +28,8 @@ public class ArticleFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private View rootview;
 
     public ArticleFragment() {
         // Required empty public constructor
@@ -60,6 +66,22 @@ public class ArticleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_article, container, false);
+        rootview = inflater.inflate(R.layout.fragment_article, container, false);
+
+        RecyclerView recyclerView = rootview.findViewById(R.id.article_list);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(rootview.getContext()));
+
+        ArticleData[] articleData = new ArticleData[]{
+            new ArticleData(1, "Ini Adalah Judul Artikel 1 Yang Akan Ditampilkan.", "BPH", "Harry Pellr", "12-12-2023 00:00:00", "https://berita.99.co/wp-content/uploads/2023/02/poster-digital.jpg"),
+            new ArticleData(2, "Ini Adalah Judul Artikel 2 Yang Akan Ditampilkan.", "Humas", "Ahmad Afandi", "12-12-2023 00:00:00", "https://berita.99.co/wp-content/uploads/2023/02/budaya-membaca.jpg"),
+            new ArticleData(3, "Ini Adalah Judul Artikel 3 Yang Akan Ditampilkan.", "Kominfo", "Younki Vanesta Ramadhana Pecinta Alam", "12-12-2023 00:00:00", "https://berita.99.co/wp-content/uploads/2023/02/selamatkan-bumi.jpg"),
+            new ArticleData(4, "Ini Adalah Judul Artikel 4 Yang Akan Ditampilkan.", "PSDM", "Budi Tarmizi", "12-12-2023 00:00:00", "https://berita.99.co/wp-content/uploads/2023/02/poster-produk.jpg"),
+        };
+
+        ArticleAdapter articleAdapter = new ArticleAdapter(articleData,this);
+        recyclerView.setAdapter(articleAdapter);
+
+        return rootview;
     }
 }
