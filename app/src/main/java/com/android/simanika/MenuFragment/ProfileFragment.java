@@ -71,6 +71,8 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_profile, container, false);
 
+
+
 //        logout_btn = rootview.findViewById(R.id.logout_button);
 //        logout_btn.setOnClickListener(new View.OnClickListener() {
 //            @Override
