@@ -1,13 +1,16 @@
 package com.android.simanika.MenuFragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.simanika.Adapter.NotificationAdapter;
+import com.android.simanika.Adapter.NotificationData;
 import com.android.simanika.R;
 
 /**
@@ -25,6 +28,8 @@ public class NotificationFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private View rootview;
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -61,6 +66,19 @@ public class NotificationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notification, container, false);
+        RecyclerView recyclerView = rootview.findViewById(R.id.notification_list);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(rootview.getContext()));
+
+        NotificationData[] notificationData = new NotificationData[]{
+                new NotificationData(1, "Ini Adalah Judul Artikel 1 Yang Akan Ditampilkan.", "BPH"),
+                new NotificationData(2, "Ini Adalah Judul Artikel 2 Yang Akan Ditampilkan.", "Humas"),
+                new NotificationData(3, "Ini Adalah Judul Artikel 3 Yang Akan Ditampilkan.", "Kominfo"),
+                  };
+
+        NotificationAdapter notificationAdapter = new NotificationAdapter(notificationData,this);
+        recyclerView.setAdapter(notificationAdapter);
+
+        return rootview;
     }
 }
