@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.simanika.MenuFragment.ArticleFragment;
 import com.android.simanika.MenuFragment.HomeFragment;
 import com.android.simanika.MenuFragment.NotificationFragment;
-import com.android.simanika.MenuFragment.ProfileFragment;
 import com.android.simanika.NoInternet.CheckInternet;
 import com.android.simanika.Services.SharedPreference.Preferences;
 
@@ -193,9 +192,9 @@ public class MainActivity extends AppCompatActivity {
                 if (selectedTab != 4){
 
                     // set profile fragment
-                    getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
-                            .replace(R.id.fragmentContainer, ProfileFragment.class, null)
-                            .commit();
+//                    getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
+//                            .replace(R.id.fragmentContainer, ProfileFragment.class, null)
+//                            .commit();
 
                     // unselect other tab except profile tab
                     homeTxt.setVisibility(View.GONE);
@@ -223,6 +222,9 @@ public class MainActivity extends AppCompatActivity {
 
                     // set 4th tab as selected tab
                     selectedTab = 4;
+
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    startActivity(intent);
                 }
             }
         });
