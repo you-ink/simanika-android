@@ -66,6 +66,8 @@ public class NotificationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        rootview = inflater.inflate(R.layout.fragment_notification, container, false);
+
         RecyclerView recyclerView = rootview.findViewById(R.id.notification_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootview.getContext()));
