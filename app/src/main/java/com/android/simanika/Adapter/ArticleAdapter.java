@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.simanika.DetailArticle;
+import com.android.simanika.MainActivity;
 import com.android.simanika.MenuFragment.ArticleFragment;
 import com.android.simanika.R;
 import com.squareup.picasso.Picasso;
@@ -39,6 +41,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        final Context context = holder.itemView.getContext();
         final ArticleData articleDataList = articleData[position];
         holder.artikelDivisi.setText(articleDataList.getDivisi());
         holder.artikelJudul.setText(articleDataList.getJudul());
@@ -50,7 +53,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, articleDataList.getJudul(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(v.getContext(), DetailArticle.class);
+                context.startActivity(intent);
             }
         });
     }

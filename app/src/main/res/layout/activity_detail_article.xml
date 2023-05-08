@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailArticle">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/sampul"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"/>
+
+        <ImageButton
+            android:id="@+id/detail_article_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/btn_back"
+            android:background="@drawable/round_search"
+            android:backgroundTint="@color/color_30"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1100px"
+        android:background="@drawable/round_section"
+        android:backgroundTint="@color/color_60"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="30dp"
+        android:paddingEnd="30dp"
+        android:paddingStart="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_text"
+            android:backgroundTint="#b3c0c7"
+            android:paddingLeft="15dp"
+            android:paddingTop="2dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="2dp"
+            android:text="divisi"
+            android:textAllCaps="true"
+            android:textColor="@color/color_30"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ini Adalah Judul Artikel yang Akan Ditampilkan. Buatlah Judul yang Menarik"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="40px"
+            android:layout_marginBottom="40px">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="90px"
+                    android:layout_height="90px"
+                    android:padding="10px"
+                    android:background="@drawable/round_search"
+                    android:src="@drawable/c30_person_icon"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:text="Budy Tarmizi"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textSize="13sp"
+                    android:text="00-00-0000"
+                    android:gravity="bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_article_button"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp"
+                    android:text="12 Artikel"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
+                    android:text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, voluptas! Dolor quaerat expedita ullam delectus id, sunt voluptates, enim ab laborum possimus atque? Quos ad saepe cumque perspiciatis beatae vero!\n\nLorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, voluptas! Dolor quaerat expedita ullam delectus id, sunt voluptates, enim ab laborum possimus atque? Quos ad saepe cumque perspiciatis beatae vero!\n\nLorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, voluptas! Dolor quaerat expedita ullam delectus id, sunt voluptates, enim ab laborum possimus atque? Quos ad saepe cumque perspiciatis beatae vero!"
+                    android:textColor="@color/black"/>
+                
+                <com.denzcoskun.imageslider.ImageSlider
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:iss_auto_cycle="true"
+                    app:iss_delay="0"
+                    app:iss_period="3000"
+                    app:iss_placeholder="@color/black"
+                    app:iss_error_image="@color/color_30"
+                    android:id="@+id/artikelSlider"
+                    app:iss_corner_radius="20"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"/>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</RelativeLayout>
