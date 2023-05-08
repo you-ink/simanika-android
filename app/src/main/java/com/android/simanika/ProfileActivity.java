@@ -13,7 +13,7 @@ import com.android.simanika.AuthFragment.LoginFragment;
 public class ProfileActivity extends AppCompatActivity {
 
     private Button editProfileButton;
-    private ImageView backbtn, kelengkapanButton, logoutButton;
+    private ImageView backbtn, kelengkapanButton, logoutButton, passButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
         kelengkapanButton = findViewById(R.id.btndata);
         logoutButton = findViewById(R.id.logout);
         backbtn = findViewById(R.id.profileback);
+        passButton = findViewById(R.id.btnpassword);
 
 
         backbtn.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +62,16 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, AuthActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        passButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, PasswordActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
