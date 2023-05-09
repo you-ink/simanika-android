@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Kelengkapan Profile"
+            android:text="Personal Data"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -40,6 +40,166 @@
         android:background="@drawable/profile_card"
         android:orientation="vertical"
         android:padding="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:boxStrokeColor="@color/white"
+                app:passwordToggleTint="@color/white"
+                app:startIconDrawable="@drawable/main_account_icon"
+                app:startIconTint="@color/white"
+                app:hintTextColor="@color/white"
+                android:textColorHint="@color/white">
+
+                <EditText
+                    android:id="@+id/edit_nama"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Nama Lengkap"
+                    android:enabled="true"
+                    android:text="Ananda Zakia Syahfitri"
+                    android:inputType="text"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:boxStrokeColor="@color/white"
+                app:passwordToggleTint="@color/white"
+                app:startIconDrawable="@drawable/main_badge_icon"
+                app:startIconTint="@color/white"
+                app:hintTextColor="@color/white"
+                android:textColorHint="@color/white">
+
+                <EditText
+                    android:id="@+id/edit_nim"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="NIM"
+                    android:enabled="true"
+                    android:text="E31210529"
+                    android:inputType="text"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:boxStrokeColor="@color/white"
+                app:passwordToggleTint="@color/white"
+                app:startIconDrawable="@drawable/active_year_profile"
+                app:startIconTint="@color/white"
+                app:hintTextColor="@color/white"
+                android:textColorHint="@color/white">
+
+                <EditText
+                    android:id="@+id/edit_angkatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Angkatan"
+                    android:enabled="true"
+                    android:text="2021"
+                    android:inputType="text"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:boxStrokeColor="@color/white"
+                app:passwordToggleTint="@color/white"
+                app:startIconDrawable="@drawable/main_email_icon"
+                app:startIconTint="@color/white"
+                app:hintTextColor="@color/white"
+                android:textColorHint="@color/white">>
+
+                <EditText
+                    android:id="@+id/edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Email"
+                    android:enabled="true"
+                    android:text="anandazakia7@gmail.com"
+                    android:inputType="text"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:boxStrokeColor="@color/white"
+                app:passwordToggleTint="@color/white"
+                app:startIconDrawable="@drawable/main_phone_icon"
+                app:startIconTint="@color/white"
+                app:hintTextColor="@color/white"
+                android:textColorHint="@color/white">>
+
+                <EditText
+                    android:id="@+id/edit_notelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="No Telepon"
+                    android:enabled="true"
+                    android:text="082391833198"
+                    android:inputType="text"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -70,18 +230,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
         </RelativeLayout>
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/btn_edit_profile"
-            android:backgroundTint="@color/main"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:text="Upload Data"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="40dp"
