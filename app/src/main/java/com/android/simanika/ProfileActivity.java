@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +14,8 @@ import com.android.simanika.AuthFragment.LoginFragment;
 public class ProfileActivity extends AppCompatActivity {
 
     private Button editProfileButton;
-    private ImageView backbtn, kelengkapanButton, logoutButton, passButton;
+    private ImageView backbtn;
+    private RelativeLayout kelengkapanButton, passButton, logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

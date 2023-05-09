@@ -111,8 +111,8 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:padding="10dp"
                         android:background="@drawable/round_menu_button"
+                        android:padding="10dp"
                         android:src="@drawable/active_person_icon" />
 
                     <TextView
@@ -135,8 +135,8 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:padding="10dp"
                         android:background="@drawable/round_menu_button"
+                        android:padding="10dp"
                         android:src="@drawable/active_bagde_profile" />
 
                     <TextView
@@ -159,8 +159,8 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:padding="10dp"
                         android:background="@drawable/round_menu_button"
+                        android:padding="10dp"
                         android:src="@drawable/active_year_profile" />
 
                     <TextView
@@ -183,8 +183,8 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:padding="10dp"
                         android:background="@drawable/round_menu_button"
+                        android:padding="10dp"
                         android:src="@drawable/active_email_profile" />
 
                     <TextView
@@ -207,8 +207,8 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:padding="10dp"
                         android:background="@drawable/round_menu_button"
+                        android:padding="10dp"
                         android:src="@drawable/active_phone_profile" />
 
                     <TextView
@@ -244,6 +244,7 @@
                     android:textStyle="bold" />
 
                 <RelativeLayout
+                    android:id="@+id/btndata"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
@@ -266,7 +267,6 @@
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:id="@+id/btndata"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -276,6 +276,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/btnpassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
@@ -298,7 +299,6 @@
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:id="@+id/btnpassword"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -320,6 +320,7 @@
                 android:padding="15dp">
 
                 <RelativeLayout
+                    android:id="@+id/logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
@@ -343,7 +344,6 @@
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:id="@+id/logout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
