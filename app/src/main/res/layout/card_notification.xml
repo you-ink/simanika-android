@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="@color/white"
     app:cardUseCompatPadding="true"
-    app:cardCornerRadius="2dp"
-    app:cardElevation="2dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="3dp"
     app:contentPadding="3dp">
 
     <LinearLayout
@@ -16,44 +16,63 @@
         style="@style/Base.CardView">
 
         <LinearLayout
-            android:layout_width="287dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/nama_notif"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Nama Rapat"
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/info_notif"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="Informasi ini di buat oleh seseorang yang sedang bingung"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="end">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="35px">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="12/08/2021"
-                android:textColor="@color/black"
-                android:textStyle="italic"/>
+                android:orientation="vertical"
+                android:padding="2px">
+
+                <TextView
+                    android:id="@+id/nama_notif"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Nama Rapat"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/info_notif"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Informasi ini di buat oleh seseorang yang sedang bingung"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:src="@drawable/bg_time" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:text="12/08/2021 "
+                    android:textSize="5pt" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00-00-0000"
+                    android:textSize="5pt" />
+
+            </LinearLayout>
+
+
         </LinearLayout>
-
-
-    </LinearLayout>
     
 </androidx.cardview.widget.CardView>
