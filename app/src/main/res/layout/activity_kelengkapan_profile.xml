@@ -230,6 +230,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
         </RelativeLayout>
+
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -239,7 +240,20 @@
             android:backgroundTint="@color/main"
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
-            android:text="Upload Data"
+            android:text="Bukti Kesanggupan"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_edit_profile"
+            android:backgroundTint="@color/main"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:text="Bukti Mahasiswa"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 

@@ -39,6 +39,7 @@
         android:layout_marginBottom="20dp">
 
         <ImageView
+            android:id="@+id/profileImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
@@ -73,7 +74,7 @@
             android:backgroundTint="@color/main"
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
-            android:text="Change Picture"
+            android:text="Change Profile"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 

@@ -67,7 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
-                builder.setTitle("Konfirmasi");
+                builder.setTitle("Konfirmasi Logout");
                 builder.setMessage("Apakah Anda yakin ingin logout?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
