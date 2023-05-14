@@ -117,7 +117,7 @@ public class RegisterFragment extends Fragment {
 
         progressDialog.show(); // Menampilkan dialog
 
-        Call<GlobalResponse> globalResponseCall = ApiClient.getUserService().userRegister(registerRequest);
+        Call<GlobalResponse> globalResponseCall = ApiClient.getUserService(rootview.getContext()).userRegister(registerRequest);
         globalResponseCall.enqueue(new Callback<GlobalResponse>() {
             @Override
             public void onResponse(Call<GlobalResponse> call, Response<GlobalResponse> response) {

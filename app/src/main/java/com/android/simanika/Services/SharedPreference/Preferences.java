@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.android.simanika.ProfileActivity;
+
 public class Preferences {
     static final String KEY_EMAIL_TEREGISTER = "email",
                         KEY_PASS_TEREGISTER = "pass",

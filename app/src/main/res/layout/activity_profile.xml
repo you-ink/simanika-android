@@ -55,7 +55,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:text="Ananda Zakia Syahfitri "
                 android:textColor="@color/color_30"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -65,7 +64,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Kepala Divisi Humas"
                 android:textColor="@color/color_30"
                 android:textSize="12sp" />
 
@@ -116,11 +114,11 @@
                         android:src="@drawable/active_person_icon" />
 
                     <TextView
+                        android:id="@+id/namaText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="55dp"
-                        android:text="Ananda Zakia Syahfitri"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
@@ -140,11 +138,11 @@
                         android:src="@drawable/active_bagde_profile" />
 
                     <TextView
+                        android:id="@+id/nimText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="55dp"
-                        android:text="E31210529"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
@@ -164,11 +162,11 @@
                         android:src="@drawable/active_year_profile" />
 
                     <TextView
+                        android:id="@+id/angkatanText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="55dp"
-                        android:text="2021"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
@@ -188,11 +186,11 @@
                         android:src="@drawable/active_email_profile" />
 
                     <TextView
+                        android:id="@+id/emailText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="55dp"
-                        android:text="anandazakia7@gmail.com"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
@@ -212,11 +210,11 @@
                         android:src="@drawable/active_phone_profile" />
 
                     <TextView
+                        android:id="@+id/telpText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="55dp"
-                        android:text="082391833198"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
