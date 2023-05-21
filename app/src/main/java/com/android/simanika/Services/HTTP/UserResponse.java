@@ -4,7 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserResponse {
     private int id;
-    private String nama, nim, angkatan, email, telp;
+    private String nama;
+    private String nim;
+    private String angkatan;
+    private String email;
+    private String telp;
+    private String alamat;
+
+    public String getAlamat() { return alamat; }
+
+    public void setAlamat(String alamat) { this.alamat = alamat;}
 
     public int getId() {
         return id;
