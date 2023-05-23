@@ -133,18 +133,18 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void getUser(){
-        ProgressDialog progressDialog = new ProgressDialog(this);
+//        ProgressDialog progressDialog = new ProgressDialog(this);
 //        progressDialog.setMessage("Loading..."); // Set message untuk dialog
-        progressDialog.setCancelable(false); // Set apakah dialog bisa di-cancel atau tidak
-
-        progressDialog.show(); // Menampilkan dialog
+//        progressDialog.setCancelable(false); // Set apakah dialog bisa di-cancel atau tidak
+//
+//        progressDialog.show(); // Menampilkan dialog
 
 
         Call<UserResponse> userResponseCall = ApiClient.getUserService(this).userDetail();
         userResponseCall.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
 
                 if (response.isSuccessful()){
                     UserResponse userResponse = response.body();
