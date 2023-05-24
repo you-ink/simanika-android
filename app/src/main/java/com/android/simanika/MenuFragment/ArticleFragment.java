@@ -1,9 +1,14 @@
 package com.android.simanika.MenuFragment;
 
+import static android.content.ContentValues.TAG;
+
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.simanika.Adapter.ArticleAdapter;
 import com.android.simanika.Adapter.ArticleData;
 import com.android.simanika.R;
+import com.android.simanika.Services.ApiClient;
+import com.android.simanika.Services.HTTP.ArtikelResponse;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,16 +87,65 @@ public class ArticleFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootview.getContext()));
 
-        ArticleData[] articleData = new ArticleData[]{
-            new ArticleData(1, "Ini Adalah Judul Artikel 1 Yang Akan Ditampilkan.", "BPH", "Harry Santoso♦", "12-12-2023 00:00:00", "https://berita.99.co/wp-content/uploads/2023/02/poster-digital.jpg"),
-            new ArticleData(2, "Ini Adalah Judul Artikel 2 Yang Akan Ditampilkan.", "Humas", "Ahmad Afandi", "12-12-2023 00:00:00", "https://berita.99.co/wp-content/uploads/2023/02/budaya-membaca.jpg"),
-            new ArticleData(3, "Ini Adalah Judul Artikel 3 Yang Akan Ditampilkan.", "Kominfo", "Younki Vanesta Ramadhana Pecinta Alam", "12-12-2023 00:00:00", "https://berita.99.co/wp-content/uploads/2023/02/selamatkan-bumi.jpg"),
-            new ArticleData(4, "Ini Adalah Judul Artikel 4 Yang Akan Ditampilkan.", "PSDM", "Budi Tarmizi", "12-12-2023 00:00:00", "https://berita.99.co/wp-content/uploads/2023/02/poster-produk.jpg"),
-        };
-
-        ArticleAdapter articleAdapter = new ArticleAdapter(articleData,this);
-        recyclerView.setAdapter(articleAdapter);
+        getArtikel(recyclerView);
 
         return rootview;
+    }
+    private void getArtikel(RecyclerView recyclerView){
+        ProgressDialog progressDialog = new ProgressDialog(rootview.getContext());
+        progressDialog.setMessage("Loading..."); // Set message untuk dialog
+        progressDialog.setCancelable(false); // Set apakah dialog bisa di-cancel atau tidak
+
+        progressDialog.show(); // Menampilkan dialog
+
+
+        Call<ArtikelResponse> artikelResponseCall = ApiClient.getArtikelService(rootview.getContext()).getArtikel();
+        artikelResponseCall.enqueue(new Callback<ArtikelResponse>() {
+            @Override
+            public void onResponse(Call<ArtikelResponse> call, Response<ArtikelResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()){
+                    ArtikelResponse artikelResponse = response.body();
+                    if (artikelResponse != null) {
+                        List<ArtikelResponse.Data> dataList = artikelResponse.getData();
+
+                        // Mengubah List menjadi array ArticleData[]
+                        ArticleData[] articleData = new ArticleData[dataList.size()];
+
+                        for (int i = 0; i < dataList.size(); i++) {
+                            ArtikelResponse.Data data = dataList.get(i);
+
+                            // Ambil data yang diperlukan dari objek data
+                            int id = data.getId();
+                            String judul = data.getJudul();
+                            String divisi = data.getDivisi().getNama();
+                            String penulis = data.getPenulis().getNama();
+                            String tanggal = data.getTanggal();
+                            String sampul = data.getSampul();
+
+                            // Buat objek ArticleData dan tambahkan ke array
+                            articleData[i] = new ArticleData(id, judul, divisi, penulis, tanggal, ApiClient.getBaseUrl()+sampul);
+                        }
+
+                        // Tambahkan kode untuk melakukan sesuatu dengan articleData, seperti mengatur adapter RecyclerView
+                        ArticleAdapter articleAdapter = new ArticleAdapter(articleData, rootview.getContext());
+                        recyclerView.setAdapter(articleAdapter);
+                    } else {
+                        Toast.makeText(rootview.getContext(), "Data Kosong", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(rootview.getContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArtikelResponse> call, Throwable t) {
+                progressDialog.dismiss();
+
+                String errorMessage = t.getMessage();
+                Log.e(TAG, "onFailure: "+t.getMessage());
+            }
+        });
     }
 }

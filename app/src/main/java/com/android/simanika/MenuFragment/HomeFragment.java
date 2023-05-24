@@ -1,5 +1,8 @@
 package com.android.simanika.MenuFragment;
 
+import static android.content.ContentValues.TAG;
+
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,17 +12,26 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.android.simanika.Adapter.ArticleAdapter;
-import com.android.simanika.Adapter.ArticleData;
 import com.android.simanika.Adapter.HomeArticleAdapter;
+import com.android.simanika.Adapter.ArticleData;
 import com.android.simanika.Adapter.RapatAdapter;
 import com.android.simanika.Adapter.RapatData;
 import com.android.simanika.R;
+import com.android.simanika.Services.ApiClient;
+import com.android.simanika.Services.HTTP.ArtikelResponse;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +51,7 @@ public class HomeFragment extends Fragment {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private View view;
+    private View rootView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -76,25 +88,17 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.article_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        RecyclerView recyclerView = rootView.findViewById(R.id.article_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setHasFixedSize(true);
 
-        ArticleData[] articleData = new ArticleData[]{
-                new ArticleData(1, "Ini Adalah Judul Artikel 1 Yang Akan Ditampilkan.", "BPH", "Harry Santoso♦", "12-12-2023 00:00:00", "https://berita.99.co/wp-content/uploads/2023/02/poster-digital.jpg"),
-                new ArticleData(2, "Ini Adalah Judul Artikel 2 Yang Akan Ditampilkan.", "Humas", "Ahmad Afandi", "12-12-2023 00:00:00", "https://berita.99.co/wp-content/uploads/2023/02/budaya-membaca.jpg"),
-                new ArticleData(3, "Ini Adalah Judul Artikel 3 Yang Akan Ditampilkan.", "Kominfo", "Younki Vanesta Ramadhana Pecinta Alam", "12-12-2023 00:00:00", "https://berita.99.co/wp-content/uploads/2023/02/selamatkan-bumi.jpg"),
-                new ArticleData(4, "Ini Adalah Judul Artikel 4 Yang Akan Ditampilkan.", "PSDM", "Budi Tarmizi", "12-12-2023 00:00:00", "https://berita.99.co/wp-content/uploads/2023/02/poster-produk.jpg"),
-        };
-
-        HomeArticleAdapter articleAdapter = new HomeArticleAdapter(articleData,view.getContext());
-        recyclerView.setAdapter(articleAdapter);
+        getNewArtikel(recyclerView);
 
 
-        RecyclerView recyclerView2 = view.findViewById(R.id.rapat_list);
-        recyclerView2.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        RecyclerView recyclerView2 = rootView.findViewById(R.id.rapat_list);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
         recyclerView2.setHasFixedSize(false);
 
         RapatData[] rapatData = new RapatData[]{
@@ -108,10 +112,57 @@ public class HomeFragment extends Fragment {
             recyclerView2.setMinimumHeight(180 * 4);
         }
 
-        RapatAdapter rapatAdapter = new RapatAdapter(rapatData, view.getContext());
+        RapatAdapter rapatAdapter = new RapatAdapter(rapatData, rootView.getContext());
         recyclerView2.setAdapter(rapatAdapter);
 
-        return view;
+        return rootView;
+    }
+
+    private void getNewArtikel(RecyclerView recyclerView){
+        Call<ArtikelResponse> artikelResponseCall = ApiClient.getArtikelService(rootView.getContext()).getNewArtikel();
+        artikelResponseCall.enqueue(new Callback<ArtikelResponse>() {
+            @Override
+            public void onResponse(Call<ArtikelResponse> call, Response<ArtikelResponse> response) {
+
+                if (response.isSuccessful()){
+                    ArtikelResponse artikelResponse = response.body();
+                    if (artikelResponse != null) {
+                        List<ArtikelResponse.Data> dataList = artikelResponse.getData();
+
+                        // Mengubah List menjadi array ArticleData[]
+                        ArticleData[] articleData = new ArticleData[dataList.size()];
+
+                        for (int i = 0; i < dataList.size(); i++) {
+                            ArtikelResponse.Data data = dataList.get(i);
+
+                            // Ambil data yang diperlukan dari objek data
+                            int id = data.getId();
+                            String judul = data.getJudul();
+                            String divisi = data.getDivisi().getNama();
+                            String penulis = data.getPenulis().getNama();
+                            String tanggal = data.getTanggal();
+                            String sampul = data.getSampul();
+
+                            // Buat objek ArticleData dan tambahkan ke array
+                            articleData[i] = new ArticleData(id, judul, divisi, penulis, tanggal, ApiClient.getBaseUrl()+sampul);
+                        }
+
+                        // Tambahkan kode untuk melakukan sesuatu dengan articleData, seperti mengatur adapter RecyclerView
+                        HomeArticleAdapter articleAdapter = new HomeArticleAdapter(articleData, rootView.getContext());
+                        recyclerView.setAdapter(articleAdapter);
+                    } else {
+                        Toast.makeText(rootView.getContext(), "Data Kosong", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(rootView.getContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArtikelResponse> call, Throwable t) {
+                Log.e(TAG, "onFailure: "+t.getMessage());
+            }
+        });
     }
 
 }

@@ -1,33 +1,26 @@
 package com.android.simanika.Adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.simanika.DetailArticle;
-import com.android.simanika.MainActivity;
-import com.android.simanika.MenuFragment.ArticleFragment;
 import com.android.simanika.R;
 import com.squareup.picasso.Picasso;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
     ArticleData[] articleData;
     Context context;
-    public ArticleAdapter(ArticleData[] articleData, ArticleFragment activity) {
+    public ArticleAdapter(ArticleData[] articleData, Context context) {
         this.articleData = articleData;
-        this.context = activity.getContext();
+        this.context = context;
     }
 
     @NonNull
@@ -67,7 +60,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView artikelDivisi, artikelJudul, artikelPenulis, artikelWaktu;
         ImageView artikelSampul;
-        ImageButton artikelMenu;
         int artikelId;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,30 +68,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             artikelPenulis = itemView.findViewById(R.id.artikelPenulis);
             artikelWaktu = itemView.findViewById(R.id.artikelWaktu);
             artikelSampul = itemView.findViewById(R.id.artikelSampul);
-            artikelMenu = itemView.findViewById(R.id.artikelMenu);
 
-            artikelMenu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    final CharSequence[] dialogitem = {"Edit Artikel", "Hapus Artikel"};
-                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setTitle("Kelola Artikel");
-                    builder.setItems(dialogitem, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            switch (i) {
-                                case 0:
-                                    Toast.makeText(context, "Edit Artikel "+String.valueOf(artikelId), Toast.LENGTH_SHORT).show();
-                                    break;
-                                case 1:
-                                    Toast.makeText(context, "Hapus Artikel "+String.valueOf(artikelId), Toast.LENGTH_SHORT).show();
-                                    break;
-                            }
-                        }
-                    });
-                    builder.create().show();
-                }
-            });
         }
     }
 }

@@ -17,6 +17,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
+    public static String getBaseUrl(){
+        return "http://192.168.1.15:8000";
+    }
+
     private static Retrofit getRetrofit(Context context){
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
@@ -34,7 +38,7 @@ public class ApiClient {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://10.10.5.116:8000/api/")
+                .baseUrl(getBaseUrl()+"/api/")
                 .client(okHttpClient)
                 .build();
 
@@ -46,6 +50,12 @@ public class ApiClient {
         UserService userService = getRetrofit(context).create(UserService.class);
 
         return userService;
+    }
+
+    public static ArticleService getArtikelService(Context context){
+        ArticleService artikelService = getRetrofit(context).create(ArticleService.class);
+
+        return artikelService;
     }
 
     public static String getApiAuth() {
