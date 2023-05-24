@@ -109,6 +109,7 @@
             android:paddingEnd="5dp"
             android:gravity="center"
             android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/homeImage"
                 android:layout_width="20dp"
