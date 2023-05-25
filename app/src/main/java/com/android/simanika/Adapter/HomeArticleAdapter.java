@@ -48,6 +48,7 @@ public class HomeArticleAdapter extends RecyclerView.Adapter<HomeArticleAdapter.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), DetailArticle.class);
+                intent.putExtra("idArtikel", String.valueOf(articleDataList.getId()));
                 context.startActivity(intent);
             }
         });

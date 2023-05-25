@@ -13,7 +13,7 @@
         tools:layout_editor_absoluteY="1dp">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/detail_artikel_sampul"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:src="@drawable/sampul"
@@ -44,6 +44,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/detail_artikel_divisi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/round_text"
@@ -60,6 +61,7 @@
             android:layout_marginBottom="15dp"/>
 
         <TextView
+            android:id="@+id/detail_artikel_judul"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ini Adalah Judul Artikel yang Akan Ditampilkan. Buatlah Judul yang Menarik"
@@ -90,10 +92,11 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
+                android:layout_weight="6"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/detail_artikel_penulis"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -103,6 +106,7 @@
                     android:text="Budy Tarmizi"/>
 
                 <TextView
+                    android:id="@+id/detail_artikel_tanggal"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -111,26 +115,6 @@
                     android:gravity="bottom"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_article_button"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="5dp"
-                    android:text="12 Artikel"
-                    android:textColor="@color/white"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:textAlignment="center"/>
-            </LinearLayout>
         </LinearLayout>
 
         <ScrollView
@@ -145,6 +129,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/detail_artikel_konten"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:justificationMode="inter_word"

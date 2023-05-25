@@ -46,13 +46,13 @@ public class DetailArtikelResponse {
         private String tanggal;
         private Penulis penulis;
         private Divisi divisi;
-        private Array file;
+        private String[] file;
 
-        public Array getFile() {
+        public String[] getFile() {
             return file;
         }
 
-        public void setFile(Array file) {
+        public void setFile(String[] file) {
             this.file = file;
         }
 
