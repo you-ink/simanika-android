@@ -7,10 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -43,6 +47,7 @@ public class DetailArticle extends AppCompatActivity {
     TextView detail_artikel_penulis;
     TextView detail_artikel_tanggal;
     TextView detail_artikel_konten;
+    WebView detail_artikel_konten_webview;
     ImageButton btnBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,11 @@ public class DetailArticle extends AppCompatActivity {
         detail_artikel_judul = findViewById(R.id.detail_artikel_judul);
         detail_artikel_penulis = findViewById(R.id.detail_artikel_penulis);
         detail_artikel_tanggal = findViewById(R.id.detail_artikel_tanggal);
-        detail_artikel_konten = findViewById(R.id.detail_artikel_konten);
+//        detail_artikel_konten = findViewById(R.id.detail_artikel_konten);
+
+        detail_artikel_konten_webview = findViewById(R.id.detail_artikel_konten_webview);
+        detail_artikel_konten_webview.setBackgroundColor(Color.TRANSPARENT);
+
         btnBack = findViewById(R.id.detail_article_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +97,13 @@ public class DetailArticle extends AppCompatActivity {
                     detail_artikel_penulis.setText(detailartikelResponse.getData().getPenulis().getNama());
                     detail_artikel_judul.setText(detailartikelResponse.getData().getJudul());
                     detail_artikel_tanggal.setText(detailartikelResponse.getData().getTanggal());
-                    detail_artikel_konten.setText(detailartikelResponse.getData().getKonten());
+
+//                    Spanned htmlSpanned = Html.fromHtml(detailartikelResponse.getData().getKonten(), Html.FROM_HTML_MODE_LEGACY);
+//
+//                    detail_artikel_konten.setText(htmlSpanned);
+
+                    detail_artikel_konten_webview.loadDataWithBaseURL(null, detailartikelResponse.getData().getKonten(), "text/html", "UTF-8", null);
+
                     Picasso.get().load(ApiClient.getBaseUrl()+detailartikelResponse.getData().getSampul()).into(detail_artikel_sampul);
 
                     ImageSlider imageSlider = findViewById(R.id.artikelSlider);
