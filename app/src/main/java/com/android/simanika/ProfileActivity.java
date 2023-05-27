@@ -1,26 +1,21 @@
 package com.android.simanika;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.simanika.AuthFragment.LoginFragment;
 import com.android.simanika.Services.ApiClient;
-import com.android.simanika.Services.HTTP.LoginRequest;
-import com.android.simanika.Services.HTTP.LoginResponse;
 import com.android.simanika.Services.HTTP.UserResponse;
 import com.android.simanika.Services.SharedPreference.Preferences;
 

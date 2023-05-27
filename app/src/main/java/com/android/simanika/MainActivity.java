@@ -18,18 +18,54 @@ import com.android.simanika.MenuFragment.ArticleFragment;
 import com.android.simanika.MenuFragment.HomeFragment;
 import com.android.simanika.MenuFragment.NotificationFragment;
 import com.android.simanika.NoInternet.CheckInternet;
+import com.android.simanika.Notification.PusherNotificationManager;
 import com.android.simanika.Services.SharedPreference.Preferences;
+import com.pusher.client.Pusher;
+import com.pusher.client.PusherOptions;
+import com.pusher.client.channel.Channel;
+import com.pusher.client.channel.PusherEvent;
+import com.pusher.client.channel.SubscriptionEventListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
     // number of selected tab. we have 4 tabs, so value must be between 1-4, and the default tab is number 1.
     private int selectedTab = 1;
     BroadcastReceiver broadcastReceiver = null;
+
+    private Pusher pusher;
+    private Channel channel;
+    private PusherNotificationManager notificationManager;
+
     private static String API_KEY;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Inisialisasi Pusher
+        PusherOptions options = new PusherOptions().setCluster("ap1");
+        pusher = new Pusher("5d8e462327809b06a3fe", options);
+
+        // Inisialisasi PusherNotificationManager
+        notificationManager = new PusherNotificationManager(this);
+
+        // Terhubung ke Pusher dan langganan saluran notifikasi
+        pusher.connect();
+        channel = pusher.subscribe("simanika-channel");
+        channel.bind("simanika-event", new SubscriptionEventListener() {
+            @Override
+            public void onEvent(PusherEvent event) {
+                handleNotification(event.getData());
+            }
+
+            @Override
+            public void onError(String message, Exception e) {
+                SubscriptionEventListener.super.onError(message, e);
+            }
+        });
 
         // check internet connection
         CheckInternet.showNoInternetDialog(MainActivity.this);
@@ -241,6 +277,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void handleNotification(String data) {
+        JSONObject jsonObject = null;
+        String title = "Null";
+        String message = "Null";
+        try {
+            jsonObject = new JSONObject(data);
+
+            title = "Notifikasi Baru";
+            message = jsonObject.getString("message");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Tampilkan notifikasi
+        notificationManager.showNotification(title, message);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -252,5 +305,14 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         internetStatus();
         checkPreferences();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // Putuskan koneksi dan batalkan langganan saat aktivitas dihancurkan
+        pusher.disconnect();
+        pusher.unsubscribe("simanika-channel");
     }
 }
