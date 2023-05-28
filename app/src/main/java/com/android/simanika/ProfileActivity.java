@@ -15,10 +15,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.simanika.Configuration.CircleTransform;
 import com.android.simanika.Notification.BackgroundNotificationService;
 import com.android.simanika.Services.ApiClient;
 import com.android.simanika.Services.HTTP.UserResponse;
 import com.android.simanika.Services.SharedPreference.Preferences;
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -148,6 +150,9 @@ public class ProfileActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()){
                     UserResponse userResponse = response.body();
+                    Picasso.get().load(ApiClient.getBaseUrl()+userResponse.getDetail_user().getFoto())
+                            .transform(new CircleTransform())
+                            .into((ImageView) findViewById(R.id.profile_foto));
                     email.setText(userResponse.getEmail());
                     nama.setText(userResponse.getNama());
                     nim.setText(userResponse.getNim());

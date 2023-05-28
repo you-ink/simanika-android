@@ -17,35 +17,39 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="120px"
+            android:layout_height="wrap_content"
             android:paddingEnd="20dp"
             android:paddingStart="20dp"
             android:paddingTop="10dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/Daftar_Artikel"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Daftar Artikel"
                 android:textColor="@color/color_30"
                 android:textStyle="bold"
                 android:textSize="18sp" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="end">
-
-                <ImageButton
-                    android:layout_width="80px"
-                    android:layout_height="80px"
-                    android:src="@drawable/white_add_icon"
-                    android:background="@drawable/round_menu_button"/>
-            </LinearLayout>
-
+            <EditText
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:id="@+id/register_nim"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="6dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:hint="Cari Artikel"
+                android:drawableLeft="@drawable/search_icon"
+                android:drawablePadding="8dp"
+                android:background="@drawable/round_search"
+                android:backgroundTint="@color/smoke_white"
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

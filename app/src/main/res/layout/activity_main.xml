@@ -23,7 +23,7 @@
                 android:layout_height="50dp">
 
                 <ImageView
-                    android:id="@+id/misc_avatar"
+                    android:id="@+id/main_user_foto"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
@@ -36,15 +36,17 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/main_user_nama"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Younki Vanesta Ramadhana"
+                        android:text="Logged In User"
                         android:textStyle="bold"
                         android:textSize="15sp"
                         android:textColor="@color/color_30"
                         android:layout_marginTop="3dp"/>
 
                     <TextView
+                        android:id="@+id/main_user_jabatan"
                         android:layout_alignParentBottom="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -55,23 +57,6 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <EditText
-                android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:id="@+id/register_nim"
-                android:layout_marginTop="12dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:hint="Cari Artikel"
-                android:drawableLeft="@drawable/search_icon"
-                android:drawablePadding="8dp"
-                android:background="@drawable/round_search"
-                android:backgroundTint="@color/smoke_white"
-                android:inputType="text"
-                android:imeOptions="actionSearch"
-                android:singleLine="true"/>
     </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView

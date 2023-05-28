@@ -123,6 +123,10 @@ public class LoginFragment extends Fragment {
 
                         Preferences.setLoggedInToken(getActivity().getBaseContext(), loginResponse.getData().getToken());
                         Preferences.setLoggedInStatus(getActivity().getBaseContext(), true);
+
+                        Preferences.setLoggedInUserNama(getActivity().getBaseContext(), loginResponse.getData().getUser().getNama());
+                        Preferences.setLoggedInUserFoto(getActivity().getBaseContext(), loginResponse.getData().getUser().getDetail_user().getFoto());
+                        Preferences.setLoggedInUserJabatan(getActivity().getBaseContext(), loginResponse.getData().getUser().getDetail_user().getJabatan().getNama());
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {

@@ -4,13 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.android.simanika.ProfileActivity;
-
 public class Preferences {
     static final String KEY_EMAIL_TEREGISTER = "email",
                         KEY_PASS_TEREGISTER = "pass",
                         KEY_STATUS_LOGIN = "is_logged_in",
-                        KEY_TOKEN_USER = "*****";
+                        KEY_TOKEN_USER = "*****",
+                        KEY_USER_FOTO = "USER_FOTO",
+                        KEY_USER_NAMA = "USER_NAMA",
+                        KEY_USER_JABATAN = "USER_JABATAN";
 
     private static SharedPreferences getSharedPreference(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
@@ -56,10 +57,43 @@ public class Preferences {
         return getSharedPreference(context).getBoolean(KEY_STATUS_LOGIN, false);
     }
 
+    public static void setLoggedInUserNama(Context context, String token) {
+        SharedPreferences.Editor editor = getSharedPreference(context).edit();
+        editor.putString(KEY_USER_NAMA, token);
+        editor.apply();
+    }
+
+    public static String getLoggedInUserNama(Context context) {
+        return getSharedPreference(context).getString(KEY_USER_NAMA, "");
+    }
+
+    public static void setLoggedInUserFoto(Context context, String token) {
+        SharedPreferences.Editor editor = getSharedPreference(context).edit();
+        editor.putString(KEY_USER_FOTO, token);
+        editor.apply();
+    }
+
+    public static String getLoggedInUserFoto(Context context) {
+        return getSharedPreference(context).getString(KEY_USER_FOTO, "");
+    }
+
+    public static void setLoggedInUserJabatan(Context context, String token) {
+        SharedPreferences.Editor editor = getSharedPreference(context).edit();
+        editor.putString(KEY_USER_JABATAN, token);
+        editor.apply();
+    }
+
+    public static String getLoggedInUserJabatan(Context context) {
+        return getSharedPreference(context).getString(KEY_USER_JABATAN, "");
+    }
+
     public static void clearLoggedInUser(Context context) {
         SharedPreferences.Editor editor = getSharedPreference(context).edit();
         editor.remove(KEY_STATUS_LOGIN);
         editor.remove(KEY_TOKEN_USER);
+        editor.remove(KEY_USER_FOTO);
+        editor.remove(KEY_USER_NAMA);
+        editor.remove(KEY_USER_JABATAN);
         editor.apply();
     }
 }

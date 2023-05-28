@@ -14,15 +14,18 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.simanika.Configuration.CircleTransform;
 import com.android.simanika.MenuFragment.ArticleFragment;
 import com.android.simanika.MenuFragment.HomeFragment;
 import com.android.simanika.MenuFragment.NotificationFragment;
 import com.android.simanika.NoInternet.CheckInternet;
 import com.android.simanika.Notification.BackgroundNotificationService;
 import com.android.simanika.Notification.PusherNotificationManager;
+import com.android.simanika.Services.ApiClient;
 import com.android.simanika.Services.SharedPreference.Preferences;
 import com.pusher.client.Pusher;
 import com.pusher.client.channel.Channel;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
         internetStatus();
 
         checkPreferences();
+
+        setUserInfo();
 
         final LinearLayout homeLayout = findViewById(R.id.homeLayout);
         final LinearLayout articleLayout = findViewById(R.id.articleLayout);
@@ -275,6 +280,18 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, AuthActivity.class);
             startActivity(intent);
         }
+    }
+
+    public void setUserInfo(){
+        TextView main_user_nama = findViewById(R.id.main_user_nama);
+        TextView main_user_jabatan = findViewById(R.id.main_user_jabatan);
+        ImageView main_user_foto = findViewById(R.id.main_user_foto);
+
+        main_user_nama.setText(Preferences.getLoggedInUserNama(this));
+        main_user_jabatan.setText(Preferences.getLoggedInUserJabatan(this));
+        Picasso.get().load(ApiClient.getBaseUrl()+Preferences.getLoggedInUserFoto(this))
+                .transform(new CircleTransform())
+                .into(main_user_foto);
     }
 
     private void handleNotification(String data) {
