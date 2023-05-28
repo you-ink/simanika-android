@@ -118,7 +118,6 @@ public class LoginFragment extends Fragment {
 
                 if (response.isSuccessful()){
                     LoginResponse loginResponse = response.body();
-
                     if (!loginResponse.isError()) {
                         Toast.makeText(rootview.getContext(), loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
 

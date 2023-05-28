@@ -8,7 +8,15 @@ public class RegisterRequest {
     private String angkatan;
     private String telp;
     private String password;
-    private String confirm_password;
+    private String password_confirmation;
+
+    public String getPassword_confirmation() {
+        return password_confirmation;
+    }
+
+    public void setPassword_confirmation(String password_confirmation) {
+        this.password_confirmation = password_confirmation;
+    }
 
     public String getNama() {
         return nama;
@@ -58,11 +66,4 @@ public class RegisterRequest {
         this.password = password;
     }
 
-    public String getConfirm_password() {
-        return confirm_password;
-    }
-
-    public void setConfirm_password(String confirm_password) {
-        this.confirm_password = confirm_password;
-    }
 }

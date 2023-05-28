@@ -2,34 +2,27 @@ package com.android.simanika;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.Spanned;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.simanika.Adapter.ArticleAdapter;
-import com.android.simanika.Adapter.ArticleData;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.simanika.Services.ApiClient;
-import com.android.simanika.Services.HTTP.ArtikelResponse;
 import com.android.simanika.Services.HTTP.DetailArtikelResponse;
-import com.android.simanika.Services.HTTP.UserResponse;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
-import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -59,7 +52,19 @@ public class DetailArticle extends AppCompatActivity {
         detail_artikel_judul = findViewById(R.id.detail_artikel_judul);
         detail_artikel_penulis = findViewById(R.id.detail_artikel_penulis);
         detail_artikel_tanggal = findViewById(R.id.detail_artikel_tanggal);
-//        detail_artikel_konten = findViewById(R.id.detail_artikel_konten);
+
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int screenHeight = displayMetrics.heightPixels;
+        int height35 = (int) (screenHeight * 0.35);
+        int height70 = (int) (screenHeight * 0.70);
+
+        RelativeLayout layout_sampul = findViewById(R.id.detail_artikel_layout_sampul);
+        layout_sampul.getLayoutParams().height = height35;
+        layout_sampul.requestLayout();
+
+        LinearLayout layout_konten = findViewById(R.id.detail_artikel_layout_konten);
+        layout_konten.getLayoutParams().height = height70;
+        layout_konten.requestLayout();
 
         detail_artikel_konten_webview = findViewById(R.id.detail_artikel_konten_webview);
         detail_artikel_konten_webview.setBackgroundColor(Color.TRANSPARENT);

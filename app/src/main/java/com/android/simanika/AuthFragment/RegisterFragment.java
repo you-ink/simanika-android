@@ -109,7 +109,7 @@ public class RegisterFragment extends Fragment {
         registerRequest.setAngkatan(angkatan.getText().toString());
         registerRequest.setTelp(telp.getText().toString());
         registerRequest.setPassword(password.getText().toString());
-        registerRequest.setConfirm_password(confirm_password.getText().toString());
+        registerRequest.setPassword_confirmation(confirm_password.getText().toString());
 
         ProgressDialog progressDialog = new ProgressDialog(rootview.getContext());
         progressDialog.setMessage("Loading..."); // Set message untuk dialog

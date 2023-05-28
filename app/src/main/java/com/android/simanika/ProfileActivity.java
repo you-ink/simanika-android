@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.simanika.Notification.BackgroundNotificationService;
 import com.android.simanika.Services.ApiClient;
 import com.android.simanika.Services.HTTP.UserResponse;
 import com.android.simanika.Services.SharedPreference.Preferences;
@@ -93,6 +94,10 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // Kode untuk logout
                         // ...
+
+                        Intent serviceIntent = new Intent(ProfileActivity.this, BackgroundNotificationService.class);
+                        stopService(serviceIntent);
+                        BackgroundNotificationService.NOTIFICATION_ID = 1;
 
                         // Kembali ke halaman login
                         Preferences.clearLoggedInUser(view.getContext());

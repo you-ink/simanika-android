@@ -7,6 +7,7 @@
     tools:context=".DetailArticle">
 
     <RelativeLayout
+        android:id="@+id/detail_artikel_layout_sampul"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         tools:layout_editor_absoluteX="1dp"
@@ -15,7 +16,7 @@
         <ImageView
             android:id="@+id/detail_artikel_sampul"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="match_parent"
             android:src="@drawable/sampul"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"/>
@@ -33,6 +34,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/detail_artikel_layout_konten"
         android:layout_width="match_parent"
         android:layout_height="1100px"
         android:background="@drawable/round_section"
@@ -56,7 +58,7 @@
             android:text="divisi"
             android:textAllCaps="true"
             android:textColor="@color/color_30"
-            android:textSize="17sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:layout_marginBottom="15dp"/>
 
@@ -82,8 +84,8 @@
                 android:layout_weight="1">
 
                 <ImageView
-                    android:layout_width="90px"
-                    android:layout_height="90px"
+                    android:layout_width="110px"
+                    android:layout_height="110px"
                     android:padding="10px"
                     android:background="@drawable/round_search"
                     android:src="@drawable/c30_person_icon"/>

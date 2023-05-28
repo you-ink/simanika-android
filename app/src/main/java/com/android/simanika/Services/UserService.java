@@ -16,7 +16,7 @@ public interface UserService {
     @POST("login")
     Call<LoginResponse> userLogin(@Body LoginRequest loginRequest);
 
-    @POST("auth/register_mobile")
+    @POST("register")
     Call<GlobalResponse> userRegister(@Body RegisterRequest registerRequest);
 
     @POST("akun")

@@ -27,7 +27,7 @@ import org.json.JSONObject;
 public class BackgroundNotificationService extends Service {
 
     private static final String CHANNEL_ID = "BackgroundNotificationChannel";
-    private static int NOTIFICATION_ID = 1;
+    public static int NOTIFICATION_ID = 1;
     private static final String PUSHER_API_KEY = "5d8e462327809b06a3fe";
     private static final String PUSHER_CHANNEL_NAME = "simanika-channel";
     private static final String PUSHER_EVENT_NAME = "simanika-event";
@@ -35,11 +35,23 @@ public class BackgroundNotificationService extends Service {
     private Pusher pusher;
     private Channel channel;
 
+    private NotificationCompat.Builder notificationBuilder;
+    private NotificationManager notificationManager;
+
     @Override
     public void onCreate() {
         super.onCreate();
         createNotificationChannel();
         connectToPusher();
+
+        notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.loginlogo)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+        notificationManager = getSystemService(NotificationManager.class);
+
+        startForeground(NOTIFICATION_ID-1, notificationBuilder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE).build());
     }
 
     @Override
@@ -118,15 +130,14 @@ public class BackgroundNotificationService extends Service {
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle(title)
+        // Update konten notifikasi
+        notificationBuilder.setContentTitle(title)
                 .setContentText(message)
-                .setSmallIcon(R.drawable.loginlogo)
-                .setContentIntent(pendingIntent)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .build();
+                .setContentIntent(pendingIntent);
 
-        startForeground(NOTIFICATION_ID, notification);
+        // Munculkan notifikasi
+        Notification notification = notificationBuilder.build();
+        notificationManager.notify(NOTIFICATION_ID, notification);
         NOTIFICATION_ID++;
     }
 }
