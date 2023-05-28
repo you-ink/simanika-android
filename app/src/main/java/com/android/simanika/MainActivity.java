@@ -18,13 +18,11 @@ import com.android.simanika.MenuFragment.ArticleFragment;
 import com.android.simanika.MenuFragment.HomeFragment;
 import com.android.simanika.MenuFragment.NotificationFragment;
 import com.android.simanika.NoInternet.CheckInternet;
+import com.android.simanika.Notification.BackgroundNotificationService;
 import com.android.simanika.Notification.PusherNotificationManager;
 import com.android.simanika.Services.SharedPreference.Preferences;
 import com.pusher.client.Pusher;
-import com.pusher.client.PusherOptions;
 import com.pusher.client.channel.Channel;
-import com.pusher.client.channel.PusherEvent;
-import com.pusher.client.channel.SubscriptionEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,28 +42,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent serviceIntent = new Intent(this, BackgroundNotificationService.class);
+        startService(serviceIntent);
 
-        // Inisialisasi Pusher
-        PusherOptions options = new PusherOptions().setCluster("ap1");
-        pusher = new Pusher("5d8e462327809b06a3fe", options);
-
-        // Inisialisasi PusherNotificationManager
-        notificationManager = new PusherNotificationManager(this);
-
-        // Terhubung ke Pusher dan langganan saluran notifikasi
-        pusher.connect();
-        channel = pusher.subscribe("simanika-channel");
-        channel.bind("simanika-event", new SubscriptionEventListener() {
-            @Override
-            public void onEvent(PusherEvent event) {
-                handleNotification(event.getData());
-            }
-
-            @Override
-            public void onError(String message, Exception e) {
-                SubscriptionEventListener.super.onError(message, e);
-            }
-        });
+//        // Inisialisasi Pusher
+//        PusherOptions options = new PusherOptions().setCluster("ap1");
+//        pusher = new Pusher("5d8e462327809b06a3fe", options);
+//
+//        // Inisialisasi PusherNotificationManager
+//        notificationManager = new PusherNotificationManager(this);
+//
+//        // Terhubung ke Pusher dan langganan saluran notifikasi
+//        pusher.connect();
+//        channel = pusher.subscribe("simanika-channel");
+//        channel.bind("simanika-event", new SubscriptionEventListener() {
+//            @Override
+//            public void onEvent(PusherEvent event) {
+//                handleNotification(event.getData());
+//            }
+//
+//            @Override
+//            public void onError(String message, Exception e) {
+//                SubscriptionEventListener.super.onError(message, e);
+//            }
+//        });
 
         // check internet connection
         CheckInternet.showNoInternetDialog(MainActivity.this);
@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
         // Putuskan koneksi dan batalkan langganan saat aktivitas dihancurkan
-        pusher.disconnect();
-        pusher.unsubscribe("simanika-channel");
+//        pusher.disconnect();
+//        pusher.unsubscribe("simanika-channel");
     }
 }
