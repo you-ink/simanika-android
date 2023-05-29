@@ -1,18 +1,17 @@
 package com.android.simanika.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.simanika.MenuFragment.HomeFragment;
+import com.android.simanika.PresensiActivity;
 import com.android.simanika.R;
 
 public class RapatAdapter extends RecyclerView.Adapter<RapatAdapter.ViewHolder>{
@@ -42,6 +41,16 @@ public class RapatAdapter extends RecyclerView.Adapter<RapatAdapter.ViewHolder>{
         holder.rapatTanggal.setText(rapatDataList.getTanggal()+" "+rapatDataList.getWaktu_mulai());
         holder.rapatTipe.setText(rapatDataList.getTipe());
         holder.rapatId = rapatDataList.getId();
+
+        holder.rapatAbsen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, PresensiActivity.class);
+                intent.putExtra("idRapat", String.valueOf(rapatDataList.getId()));
+                intent.putExtra("namaRapat", rapatDataList.getNama());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -61,13 +70,6 @@ public class RapatAdapter extends RecyclerView.Adapter<RapatAdapter.ViewHolder>{
             rapatTanggal= itemView.findViewById(R.id.rapatTanggal);
             rapatTipe = itemView.findViewById(R.id.rapatTipe);
             rapatAbsen = itemView.findViewById(R.id.rapatAbsen);
-
-            rapatAbsen.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(context, "Nanti Intent Ke Halaman Absen Rapat "+String.valueOf(rapatId), Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     }
 }

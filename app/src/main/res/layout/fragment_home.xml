@@ -63,7 +63,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:text="Rapat Terkini"
+                        android:text="Rapat Hari Ini"
                         android:textColor="@color/color_30"
                         android:textSize="18sp"
                         android:textStyle="bold"

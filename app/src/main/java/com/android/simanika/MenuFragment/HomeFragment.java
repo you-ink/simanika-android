@@ -2,24 +2,20 @@ package com.android.simanika.MenuFragment;
 
 import static android.content.ContentValues.TAG;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.android.simanika.Adapter.HomeArticleAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
 import com.android.simanika.Adapter.ArticleData;
+import com.android.simanika.Adapter.HomeArticleAdapter;
 import com.android.simanika.Adapter.RapatAdapter;
 import com.android.simanika.Adapter.RapatData;
 import com.android.simanika.R;
@@ -181,7 +177,7 @@ public class HomeFragment extends Fragment {
                             String divisi= data.getDivisi().getNama();
 
                             // Buat objek RapatData dan tambahkan ke array
-                            rapatData[i] = new RapatData(id, nama, waktu_mulai, tipe, divisi, tanggal);
+                            rapatData[i] = new RapatData(id, nama, waktu_mulai, deskripsi_tipe, divisi, tanggal);
                         }
                         if (rapatData.length > 1) {
                             recyclerView.setMinimumHeight(180 * 5);
