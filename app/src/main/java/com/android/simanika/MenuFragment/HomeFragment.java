@@ -25,6 +25,7 @@ import com.android.simanika.Adapter.RapatData;
 import com.android.simanika.R;
 import com.android.simanika.Services.ApiClient;
 import com.android.simanika.Services.HTTP.ArtikelResponse;
+import com.android.simanika.Services.HTTP.RapatResponse;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
@@ -101,19 +102,7 @@ public class HomeFragment extends Fragment {
         recyclerView2.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
         recyclerView2.setHasFixedSize(false);
 
-        RapatData[] rapatData = new RapatData[]{
-                new RapatData(1, "Rapat Membahas Anggota Baru", "19.00", "Rapat Himpunan", "SEMUA DIVISI", "02-06-2023"),
-                new RapatData(2, "Rapat Kegiatan Bulan ini", "18.00", "Rapat Program Kerja", "HUMAS", "23-08-2023"),
-                new RapatData(3, "Rapat Acara Olahraga", "13.00", "Rapat Program Kerja", "PSDM", "17-05-2023"),
-                new RapatData(4, "Rapat Bulanan", "09.00", "Rapat Himpunan", "SEMUA DIVISI", "10-10-2023"),
-        };
-
-        if (rapatData.length > 1) {
-            recyclerView2.setMinimumHeight(180 * 4);
-        }
-
-        RapatAdapter rapatAdapter = new RapatAdapter(rapatData, rootView.getContext());
-        recyclerView2.setAdapter(rapatAdapter);
+       getNewRapat(recyclerView2);
 
         return rootView;
     }
@@ -164,5 +153,54 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+    private void getNewRapat(RecyclerView recyclerView){
+        Call<RapatResponse> rapatResponseCall = ApiClient.getRapatService(rootView.getContext()).getRapat();
+        rapatResponseCall.enqueue(new Callback<RapatResponse>() {
+            @Override
+            public void onResponse(Call<RapatResponse> call, Response<RapatResponse> response) {
 
+                if (response.isSuccessful()){
+                    RapatResponse rapatResponse = response.body();
+                    if (rapatResponse != null) {
+                        List<RapatResponse.Data> dataList = rapatResponse.getData();
+
+                        // Mengubah List menjadi array ArticleData[]
+                        RapatData[] rapatData = new RapatData[dataList.size()];
+
+                        for (int i = 0; i < dataList.size(); i++) {
+                            RapatResponse.Data data = dataList.get(i);
+
+                            // Ambil data yang diperlukan dari objek data
+                            int id = data.getId();
+                            String tanggal = data.getTanggal();
+                            String waktu_mulai = data.getWaktu_mulai();
+                            String notulensi = data.getNotulensi();
+                            String nama = data.getNama();
+                            String tipe= data.getTipe();
+                            String deskripsi_tipe= data.getDeskripsi_tipe();
+                            String divisi= data.getDivisi().getNama();
+
+                            // Buat objek RapatData dan tambahkan ke array
+                            rapatData[i] = new RapatData(id, nama, waktu_mulai, tipe, divisi, tanggal);
+                        }
+                        if (rapatData.length > 1) {
+                            recyclerView.setMinimumHeight(180 * 5);
+                        }
+                        // Tambahkan kode untuk melakukan sesuatu dengan articleData, seperti mengatur adapter RecyclerView
+                        RapatAdapter rapatAdapter = new RapatAdapter(rapatData, rootView.getContext());
+                        recyclerView.setAdapter(rapatAdapter);
+                    } else {
+                        Toast.makeText(rootView.getContext(), "Data Kosong", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(rootView.getContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RapatResponse> call, Throwable t) {
+                Log.e(TAG, "onFailure: "+t.getMessage());
+            }
+        });
+    }
 }

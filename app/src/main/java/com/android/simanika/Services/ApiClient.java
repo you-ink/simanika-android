@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     public static String getBaseUrl(){
-        return "http://192.168.1.12:8000";
+        return "http://192.168.1.166:8000";
     }
 
     private static Retrofit getRetrofit(Context context){
@@ -57,6 +57,13 @@ public class ApiClient {
 
         return artikelService;
     }
+
+    public static RapatService    getRapatService(Context context){
+        RapatService rapatService = getRetrofit(context).create(RapatService.class);
+
+        return rapatService;
+    }
+
 
     public static String getApiAuth() {
         return "Basic " + Base64.encodeToString("simanika_auth:$iM@n1K4_4utH".getBytes(), Base64.NO_WRAP);
