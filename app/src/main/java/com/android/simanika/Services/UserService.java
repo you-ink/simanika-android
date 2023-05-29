@@ -4,6 +4,7 @@ import com.android.simanika.Services.HTTP.GlobalResponse;
 import com.android.simanika.Services.HTTP.LoginRequest;
 import com.android.simanika.Services.HTTP.LoginResponse;
 import com.android.simanika.Services.HTTP.RegisterRequest;
+import com.android.simanika.Services.HTTP.UpdatePasswordRequest;
 import com.android.simanika.Services.HTTP.UpdateProfileRequest;
 import com.android.simanika.Services.HTTP.UserResponse;
 
@@ -24,4 +25,7 @@ public interface UserService {
 
     @POST("edit_profil")
     Call<GlobalResponse> userUpdateProfile(@Body UpdateProfileRequest updateProfileRequest);
+
+    @POST("ubah_password")
+    Call<GlobalResponse> userUpdatePassword(@Body UpdatePasswordRequest updatePaswordRequest);
 }
