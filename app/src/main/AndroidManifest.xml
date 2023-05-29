@@ -18,9 +18,15 @@
         android:theme="@style/Theme.Simanika"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <service android:name=".Notification.BackgroundNotificationService"
+        <activity
+            android:name=".PresensiActivity"
+            android:exported="false" />
+
+        <service
+            android:name=".Notification.BackgroundNotificationService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
+
         <activity
             android:name=".DetailArticle"
             android:exported="false" />
