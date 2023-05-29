@@ -1,12 +1,10 @@
 package com.android.simanika;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -17,13 +15,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
 
+import com.android.simanika.Configuration.CircleTransform;
 import com.android.simanika.Services.ApiClient;
 import com.android.simanika.Services.HTTP.GlobalResponse;
-import com.android.simanika.Services.HTTP.RegisterRequest;
 import com.android.simanika.Services.HTTP.UpdateProfileRequest;
 import com.android.simanika.Services.HTTP.UserResponse;
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -180,7 +178,9 @@ public class EditProfileActivity extends AppCompatActivity {
                     telp.setText(userResponse.getTelp());
                     profilName.setText(userResponse.getNama());
                     profilBio.setText(userResponse.getDetail_user().getDivisi().getNama()+"." + userResponse.getDetail_user().getJabatan().getNama());
-
+                    Picasso.get().load(ApiClient.getBaseUrl()+userResponse.getDetail_user().getFoto())
+                            .transform(new CircleTransform())
+                            .into((ImageView) findViewById(R.id.profile_foto));
                 } else {
                     Toast.makeText(EditProfileActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                 }

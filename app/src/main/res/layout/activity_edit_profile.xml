@@ -39,7 +39,7 @@
         android:layout_marginBottom="20dp">
 
         <ImageView
-            android:id="@+id/profileImage"
+            android:id="@+id/profile_foto"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
