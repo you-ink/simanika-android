@@ -11,6 +11,7 @@ import java.util.Date;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.net.Uri;
 import android.os.Environment;
@@ -42,6 +43,7 @@ public class PresensiActivity extends AppCompatActivity {
     private Button ambilfoto, submit;
     private Spinner spinnerPanitia;
     private Uri file;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,35 +55,6 @@ public class PresensiActivity extends AppCompatActivity {
         ambilfoto = findViewById(R.id.ambil_foto);
         hasilfoto = findViewById(R.id.hasil_foto);
         submit = findViewById(R.id.btnSumbit);
-
-        ambilfoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ambilFoto();
-            }
-        });
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ambilfoto.setEnabled(false);
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-        }
-
-//        public void onRequestPermissionsResult(int requestCode)String[] permissions, int[] grantResults) {
-//            if (requestCode ==0) {
-//                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
-//                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-//                    ambilfoto.setEnabled(true);
-//                }
-//            }
-//        }
-
-//        protected void onActivityResult(int requestCode, int resultCode, Intent Object data;)  {
-//            if (requestCode == 100) {
-//                if(resultCode == RESULT_OK) {
-//                    hasilfoto.setImageURI(file);
-//                }
-//            }
-//        }
 
         presensi_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +75,24 @@ public class PresensiActivity extends AppCompatActivity {
         });
     }
 
+    public void captureImage(View view) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            hasilfoto.setImageBitmap(imageBitmap);
+        }
+    }
+
     private void SubmitPresensi() {
         PresensiRequest presensiRequest = new PresensiRequest();
 //        presensiRequest.setFoto(foto.getText().toString());
@@ -113,7 +104,7 @@ public class PresensiActivity extends AppCompatActivity {
 //
 //        progressDialog.show(); // Menampilkan dialog
 
-        Call<GlobalResponse> globalResponseCall = ApiClient.getUserService(PresensiActivity.this).userPresensi(presensiRequest);
+        Call<GlobalResponse> globalResponseCall = ApiClient.getRapatService(PresensiActivity.this).presensi(presensiRequest);
         globalResponseCall.enqueue(new Callback<GlobalResponse>() {
             @Override
             public void onResponse(Call<GlobalResponse> call, Response<GlobalResponse> response) {
@@ -121,6 +112,7 @@ public class PresensiActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     GlobalResponse globalResponse = response.body();
+
 
                     if (!globalResponse.isError()) {
                         Toast.makeText(PresensiActivity.this, globalResponse.getMessage(), Toast.LENGTH_SHORT).show();
@@ -151,25 +143,4 @@ public class PresensiActivity extends AppCompatActivity {
         });
     }
 
-    private void ambilFoto() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        file = Uri.fromFile(getOutputMediaFile());
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,file);
-
-        startActivityForResult(intent, 100);
-    }
-
-    private File getOutputMediaFile() {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Camera");
-
-        if(!mediaStorageDir.exists()) {
-            if(!mediaStorageDir.mkdirs()){
-                return null;
-            }
-        }
-
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) ;
-        return new File((mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg"));
-
-    }
 }

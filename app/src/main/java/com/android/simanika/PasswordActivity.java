@@ -63,17 +63,17 @@ public class PasswordActivity extends AppCompatActivity {
         updatePasswordRequest.setPassword(password.getText().toString());
         updatePasswordRequest.setPassword_confirmation(konfirm_password.getText().toString());
 
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading..."); // Set message untuk dialog
-        progressDialog.setCancelable(false); // Set apakah dialog bisa di-cancel atau tidak
-
-        progressDialog.show(); // Menampilkan dialog
+//        ProgressDialog progressDialog = new ProgressDialog(this);
+//        progressDialog.setMessage("Loading..."); // Set message untuk dialog
+//        progressDialog.setCancelable(false); // Set apakah dialog bisa di-cancel atau tidak
+//
+//        progressDialog.show(); // Menampilkan dialog
 
         Call<GlobalResponse> globalResponseCall = ApiClient.getUserService(PasswordActivity.this).userUpdatePassword(updatePasswordRequest);
         globalResponseCall.enqueue(new Callback<GlobalResponse>() {
             @Override
             public void onResponse(Call<GlobalResponse> call, Response<GlobalResponse> response) {
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
 
                 if (response.isSuccessful()){
                     GlobalResponse globalResponse = response.body();

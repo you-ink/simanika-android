@@ -129,7 +129,8 @@
                             android:backgroundTint="@color/main"
                             android:paddingStart="30dp"
                             android:paddingEnd="30dp"
-                            android:text="Upload Gambar"
+                            android:text="Capture"
+                            android:onClick="captureImage"
                             android:textAllCaps="false"
                             android:textColor="@color/white" />
 

@@ -29,6 +29,4 @@ public interface UserService {
 
     @POST("ubah_password")
     Call<GlobalResponse> userUpdatePassword(@Body UpdatePasswordRequest updatePaswordRequest);
-
-    Call<GlobalResponse> userPresensi(PresensiRequest presensiRequest);
 }
