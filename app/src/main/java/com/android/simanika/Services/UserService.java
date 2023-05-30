@@ -3,6 +3,7 @@ package com.android.simanika.Services;
 import com.android.simanika.Services.HTTP.GlobalResponse;
 import com.android.simanika.Services.HTTP.LoginRequest;
 import com.android.simanika.Services.HTTP.LoginResponse;
+import com.android.simanika.Services.HTTP.PresensiRequest;
 import com.android.simanika.Services.HTTP.RegisterRequest;
 import com.android.simanika.Services.HTTP.UpdatePasswordRequest;
 import com.android.simanika.Services.HTTP.UpdateProfileRequest;
@@ -28,4 +29,6 @@ public interface UserService {
 
     @POST("ubah_password")
     Call<GlobalResponse> userUpdatePassword(@Body UpdatePasswordRequest updatePaswordRequest);
+
+    Call<GlobalResponse> userPresensi(PresensiRequest presensiRequest);
 }
