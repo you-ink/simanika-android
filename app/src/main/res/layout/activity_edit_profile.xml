@@ -44,7 +44,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:src="@drawable/profile"/>
+            android:src="@drawable/main_account_icon"/>
 
         <TextView
             android:id="@+id/profile_name"
@@ -75,6 +75,7 @@
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
             android:text="Change Profile"
+            android:onClick="chooseImage"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 

@@ -2,6 +2,7 @@ package com.android.simanika;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,13 +24,15 @@ import com.android.simanika.Services.HTTP.UpdateProfileRequest;
 import com.android.simanika.Services.HTTP.UserResponse;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditProfileActivity extends AppCompatActivity {
 
-    private ImageView btnback, foto;
+    private ImageView btnback, profileImage;
     private Button btnedit, btneditprofile;
     private TextView profilName, profilBio;
     private EditText nama, nim, angkatan, email, telp;
@@ -40,9 +43,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int CAMERA_REQUEST = 2;
 
-    // Deklarasi variabel
-    private ImageView profileImage;
     private Uri imageUri;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +55,7 @@ public class EditProfileActivity extends AppCompatActivity {
         angkatan = findViewById(R.id.edit_angkatan);
         email = findViewById(R.id.edit_email);
         telp = findViewById(R.id.edit_notelp);
-        foto = findViewById(R.id.profileImage);
+        profileImage = findViewById(R.id.profile_foto);
         profilName = findViewById(R.id.profile_name);
         profilBio = findViewById(R.id.profile_bio);
 
@@ -75,34 +77,57 @@ public class EditProfileActivity extends AppCompatActivity {
                 UpdateProfile();
             }
         });
+        getUser();
+    }
 
-        btnedit.setOnClickListener(new View.OnClickListener() {
+    public void chooseImage(View view) {
+        final CharSequence[] options = {"Pilih dari Galeri", "Ambil Foto"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Pilih Foto");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // Membuat dialog untuk memilih sumber foto (galeri atau kamera)
-                AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
-                builder.setTitle("Upload Foto Profil");
-                builder.setItems(new CharSequence[]{"Ambil dari Galeri", "Ambil dengan Kamera"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                // Memilih foto dari galeri
-                                Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
-                                break;
-                            case 1:
-                                // Mengambil foto dengan kamera
-                                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                                break;
-                        }
-                    }
-                });
-                builder.show();
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        // Memilih foto dari galeri
+                        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
+                        break;
+                    case 1:
+                        // Mengambil foto dengan kamera
+                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                        break;
+                }
             }
         });
-        getUser();
+        builder.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PICK_IMAGE_REQUEST && data != null) {
+                // Mendapatkan URI dari gambar yang dipilih dari galeri
+                Uri selectedImageUri = data.getData();
+                try {
+                    // Mengubah URI menjadi Bitmap
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                    // Menampilkan gambar pada ImageView
+                    profileImage.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if (requestCode == CAMERA_REQUEST && data != null) {
+                // Mendapatkan foto yang diambil menggunakan kamera
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                // Menampilkan foto pada ImageView
+                profileImage.setImageBitmap(photo);
+            }
+        }
     }
 
     private void UpdateProfile() {
@@ -177,7 +202,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     email.setText(userResponse.getEmail());
                     telp.setText(userResponse.getTelp());
                     profilName.setText(userResponse.getNama());
-                    profilBio.setText(userResponse.getDetail_user().getDivisi().getNama()+"." + userResponse.getDetail_user().getJabatan().getNama());
+                    profilBio.setText(userResponse.getDetail_user().getDivisi().getNama()+" - " + userResponse.getDetail_user().getJabatan().getNama());
                     Picasso.get().load(ApiClient.getBaseUrl()+userResponse.getDetail_user().getFoto())
                             .transform(new CircleTransform())
                             .into((ImageView) findViewById(R.id.profile_foto));
