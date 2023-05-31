@@ -2,36 +2,23 @@ package com.android.simanika;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import android.Manifest;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.net.Uri;
-import android.os.Environment;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.os.Bundle;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
-import com.android.simanika.Adapter.PanitiaAdapter;
 import com.android.simanika.Services.ApiClient;
 import com.android.simanika.Services.HTTP.GlobalResponse;
 import com.android.simanika.Services.HTTP.PresensiRequest;
-import com.android.simanika.Services.HTTP.UpdateProfileRequest;
-import com.android.simanika.Services.SharedPreference.Preferences;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,6 +43,11 @@ public class PresensiActivity extends AppCompatActivity {
         hasilfoto = findViewById(R.id.hasil_foto);
         submit = findViewById(R.id.btnSumbit);
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.panitia_arrays, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPanitia.setAdapter(adapter);
+        
         presensi_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

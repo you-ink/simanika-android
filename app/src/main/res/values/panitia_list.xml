@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="panitia_arrays">
+        <item>Ketua</item>
+        <item>Sekretaris</item>
+        <item>Bendahara</item>
+        <item>Sie Acara</item>
+        <item>Sie Humas</item>
+        <item>Sie PDD</item>
+        <item>Sie Perkab</item>
+        <item>Sie Konsumsi</item>
+    </string-array>
+</resources>
