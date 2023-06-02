@@ -5,9 +5,13 @@ import static android.content.ContentValues.TAG;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -87,19 +91,37 @@ public class ArticleFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootview.getContext()));
 
-        getArtikel(recyclerView);
+        getArtikel(recyclerView, null);
+
+        EditText inputSearch = rootview.findViewById(R.id.cari_artikel);
+        inputSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    String searchQuery = textView.getText().toString();
+                    getArtikel(recyclerView, (searchQuery.isEmpty())? "" : searchQuery);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         return rootview;
     }
-    private void getArtikel(RecyclerView recyclerView){
+    private void getArtikel(RecyclerView recyclerView, String search){
         ProgressDialog progressDialog = new ProgressDialog(rootview.getContext());
         progressDialog.setMessage("Loading..."); // Set message untuk dialog
         progressDialog.setCancelable(false); // Set apakah dialog bisa di-cancel atau tidak
 
         progressDialog.show(); // Menampilkan dialog
 
+        Call<ArtikelResponse> artikelResponseCall = null;
+        if (search == null || search.isEmpty()) {
+            artikelResponseCall = ApiClient.getArtikelService(rootview.getContext()).getArtikel();
+        } else {
+            artikelResponseCall = ApiClient.getArtikelService(rootview.getContext()).getArtikel(search);
+        }
 
-        Call<ArtikelResponse> artikelResponseCall = ApiClient.getArtikelService(rootview.getContext()).getArtikel();
         artikelResponseCall.enqueue(new Callback<ArtikelResponse>() {
             @Override
             public void onResponse(Call<ArtikelResponse> call, Response<ArtikelResponse> response) {
