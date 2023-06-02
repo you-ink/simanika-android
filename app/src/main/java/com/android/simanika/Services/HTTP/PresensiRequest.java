@@ -1,26 +1,21 @@
 package com.android.simanika.Services.HTTP;
 
+
+import okhttp3.RequestBody;
+
 public class PresensiRequest {
-    private String waktu_hadir;
-    private String foto;
-    private String peran;
-    private String rapat_id;
+    private RequestBody foto;
 
-    public String getWaktu_hadir() {
-        return waktu_hadir;
-    }
-
-    public void setWaktu_hadir(String waktu_hadir) {
-        this.waktu_hadir = waktu_hadir;
-    }
-
-    public String getFoto() {
+    public RequestBody getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(RequestBody foto) {
         this.foto = foto;
     }
+
+    private String peran;
+    private String rapat_id;
 
     public String getPeran() {
         return peran;
