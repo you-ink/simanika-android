@@ -127,6 +127,7 @@ public class LoginFragment extends Fragment {
                         Preferences.setLoggedInUserNama(getActivity().getBaseContext(), loginResponse.getData().getUser().getNama());
                         Preferences.setLoggedInUserFoto(getActivity().getBaseContext(), loginResponse.getData().getUser().getDetail_user().getFoto());
                         Preferences.setLoggedInUserJabatan(getActivity().getBaseContext(), loginResponse.getData().getUser().getDetail_user().getJabatan().getNama());
+                        Preferences.setLoggedInUserStatus(getActivity().getBaseContext(), loginResponse.getData().getUser().getStatus());
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {

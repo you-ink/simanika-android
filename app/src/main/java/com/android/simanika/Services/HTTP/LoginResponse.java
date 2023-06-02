@@ -61,6 +61,7 @@ public class LoginResponse {
         public static class User {
             private int id;
             private String nama;
+            private String status;
             private Detail_user detail_user;
 
             public int getId() {
@@ -77,6 +78,14 @@ public class LoginResponse {
 
             public void setNama(String nama) {
                 this.nama = nama;
+            }
+
+            public String getStatus() {
+                return status;
+            }
+
+            public void setStatus(String status) {
+                this.status = status;
             }
 
             public Detail_user getDetail_user() {

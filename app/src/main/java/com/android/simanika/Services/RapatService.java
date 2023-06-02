@@ -10,6 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface RapatService {
 
@@ -23,4 +24,7 @@ public interface RapatService {
             @Part("rapat_id") RequestBody rapatId,
             @Part MultipartBody.Part foto
     );
+
+    @GET("cek_presensi/{rapat_id}")
+    Call<GlobalResponse> cekPresensi(@Path("rapat_id") String rapat_id);
 }

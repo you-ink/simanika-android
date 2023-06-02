@@ -1,5 +1,7 @@
 package com.android.simanika;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -58,7 +61,8 @@ public class PresensiActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String namaRapat = intent.getStringExtra("namaRapat");
-        presensi_nama_rapat.setText("Presensi Rapat "+namaRapat);
+        String idRapat = intent.getStringExtra("idRapat");
+        presensi_nama_rapat.setText("Presensi "+namaRapat);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.panitia_arrays, android.R.layout.simple_spinner_item);
@@ -79,6 +83,30 @@ public class PresensiActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SubmitPresensi();
+            }
+        });
+
+        checkUser(idRapat);
+    }
+
+    private void checkUser(String idRapat) {
+        Call<GlobalResponse> cekPresensi = ApiClient.getRapatService(PresensiActivity.this).cekPresensi(idRapat);
+        cekPresensi.enqueue(new Callback<GlobalResponse>() {
+            @Override
+            public void onResponse(Call<GlobalResponse> call, Response<GlobalResponse> response) {
+                if (response.isSuccessful()){
+                    GlobalResponse globalResponse = response.body();
+
+                    if (!globalResponse.isError()) {
+                        submit.setEnabled(false);
+                        submit.setText("Telah Submit");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GlobalResponse> call, Throwable t) {
+                Log.e(TAG, "onFailure: "+t.getLocalizedMessage());
             }
         });
     }

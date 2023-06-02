@@ -11,7 +11,8 @@ public class Preferences {
                         KEY_TOKEN_USER = "*****",
                         KEY_USER_FOTO = "USER_FOTO",
                         KEY_USER_NAMA = "USER_NAMA",
-                        KEY_USER_JABATAN = "USER_JABATAN";
+                        KEY_USER_JABATAN = "USER_JABATAN",
+                        KEY_USER_STATUS = "USER_STATUS";
 
     private static SharedPreferences getSharedPreference(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
@@ -85,6 +86,16 @@ public class Preferences {
 
     public static String getLoggedInUserJabatan(Context context) {
         return getSharedPreference(context).getString(KEY_USER_JABATAN, "");
+    }
+
+    public static void setLoggedInUserStatus(Context context, String token) {
+        SharedPreferences.Editor editor = getSharedPreference(context).edit();
+        editor.putString(KEY_USER_STATUS, token);
+        editor.apply();
+    }
+
+    public static String getLoggedInUserStatus(Context context) {
+        return getSharedPreference(context).getString(KEY_USER_STATUS, "");
     }
 
     public static void clearLoggedInUser(Context context) {

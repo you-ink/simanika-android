@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,7 @@ import com.android.simanika.R;
 import com.android.simanika.Services.ApiClient;
 import com.android.simanika.Services.HTTP.ArtikelResponse;
 import com.android.simanika.Services.HTTP.RapatResponse;
+import com.android.simanika.Services.SharedPreference.Preferences;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
@@ -86,6 +88,11 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
+        if (!Preferences.getLoggedInUserStatus(rootView.getContext()).equalsIgnoreCase("1")) {
+            TextView tv = rootView.findViewById(R.id.header_home_fragment);
+            tv.setText("Halo calon pengurus baru, tunggu notifikasi seputar wawancaramu disini!");
+        }
 
         RecyclerView recyclerView = rootView.findViewById(R.id.article_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.HORIZONTAL, false));
