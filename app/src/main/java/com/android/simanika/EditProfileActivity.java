@@ -2,8 +2,8 @@ package com.android.simanika;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,12 +20,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.simanika.Configuration.CircleTransform;
 import com.android.simanika.Services.ApiClient;
 import com.android.simanika.Services.HTTP.GlobalResponse;
-import com.android.simanika.Services.HTTP.UpdateProfileRequest;
 import com.android.simanika.Services.HTTP.UserResponse;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,6 +38,7 @@ import retrofit2.Response;
 public class EditProfileActivity extends AppCompatActivity {
 
     private ImageView btnback, profileImage;
+    private File fotoprofile = null;
     private Button btnedit, btneditprofile;
     private TextView profilName, profilBio;
     private EditText nama, nim, angkatan, email, telp;
@@ -118,6 +124,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
                     // Menampilkan gambar pada ImageView
                     profileImage.setImageBitmap(bitmap);
+                    fotoprofile = bitmapToFile(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -126,29 +133,61 @@ public class EditProfileActivity extends AppCompatActivity {
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
                 // Menampilkan foto pada ImageView
                 profileImage.setImageBitmap(photo);
+                fotoprofile = bitmapToFile(photo);
             }
         }
     }
 
+    public File bitmapToFile(Bitmap bitmap) {
+        try {
+            File file = new File(getCacheDir(), "temp_image.jpg");
+            file.createNewFile();
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byte[] bitmapData = byteArrayOutputStream.toByteArray();
+
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(bitmapData);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+
+            return file;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private void UpdateProfile() {
-        UpdateProfileRequest updateProfileRequest = new UpdateProfileRequest();
-        updateProfileRequest.setNama(nama.getText().toString());
-        updateProfileRequest.setTelp(telp.getText().toString());
-        updateProfileRequest.setAngkatan(angkatan.getText().toString());
-//      updateProfileRequest.setFoto(foto.get().toString());
+        MultipartBody.Part fotoPart = null;
+        if (fotoprofile != null) {
+            File file = new File(fotoprofile.getPath());
+            RequestBody fotoRequestBody = RequestBody.create(file, MediaType.parse("image/jpeg"));
+            fotoPart = MultipartBody.Part.createFormData("foto", file.getName(), fotoRequestBody);
+        }
 
-//        ProgressDialog progressDialog = new ProgressDialog(this);
-//        progressDialog.setMessage("Loading..."); // Set message untuk dialog
-//        progressDialog.setCancelable(false); // Set apakah dialog bisa di-cancel atau tidak
-//
-//        progressDialog.show(); // Menampilkan dialog
+        Call<GlobalResponse> globalResponseCall = null;
+        if (fotoPart == null) {
+            globalResponseCall = ApiClient.getUserService(EditProfileActivity.this)
+                .userUpdateProfile(
+                    RequestBody.create(nama.getText().toString(), MediaType.parse("text/plain")),
+                    RequestBody.create(telp.getText().toString(), MediaType.parse("text/plain")),
+                    RequestBody.create(angkatan.getText().toString(), MediaType.parse("text/plain"))
+                );
+        } else {
+            globalResponseCall = ApiClient.getUserService(EditProfileActivity.this)
+                    .userUpdateProfile(
+                            RequestBody.create(nama.getText().toString(), MediaType.parse("text/plain")),
+                            RequestBody.create(telp.getText().toString(), MediaType.parse("text/plain")),
+                            RequestBody.create(angkatan.getText().toString(), MediaType.parse("text/plain")),
+                            fotoPart
+                    );
+        }
 
-        Call<GlobalResponse> globalResponseCall = ApiClient.getUserService(EditProfileActivity.this).userUpdateProfile(updateProfileRequest);
         globalResponseCall.enqueue(new Callback<GlobalResponse>() {
             @Override
             public void onResponse(Call<GlobalResponse> call, Response<GlobalResponse> response) {
-//                progressDialog.dismiss();
-
                 if (response.isSuccessful()) {
                     GlobalResponse globalResponse = response.body();
 
@@ -202,7 +241,11 @@ public class EditProfileActivity extends AppCompatActivity {
                     email.setText(userResponse.getEmail());
                     telp.setText(userResponse.getTelp());
                     profilName.setText(userResponse.getNama());
-                    profilBio.setText(userResponse.getDetail_user().getDivisi().getNama()+" - " + userResponse.getDetail_user().getJabatan().getNama());
+                    if (userResponse.getDetail_user().getDivisi() == null) {
+                        profilBio.setText(userResponse.getDetail_user().getJabatan().getNama());
+                    } else {
+                        profilBio.setText(userResponse.getDetail_user().getDivisi().getNama()+" - " + userResponse.getDetail_user().getJabatan().getNama());
+                    }
                     Picasso.get().load(ApiClient.getBaseUrl()+userResponse.getDetail_user().getFoto())
                             .transform(new CircleTransform())
                             .into((ImageView) findViewById(R.id.profile_foto));

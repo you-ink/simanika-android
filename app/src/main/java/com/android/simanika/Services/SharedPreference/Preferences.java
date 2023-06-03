@@ -12,7 +12,8 @@ public class Preferences {
                         KEY_USER_FOTO = "USER_FOTO",
                         KEY_USER_NAMA = "USER_NAMA",
                         KEY_USER_JABATAN = "USER_JABATAN",
-                        KEY_USER_STATUS = "USER_STATUS";
+                        KEY_USER_STATUS = "USER_STATUS",
+                        KEY_USER_ID = "USER_ID";
 
     private static SharedPreferences getSharedPreference(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
@@ -98,6 +99,16 @@ public class Preferences {
         return getSharedPreference(context).getString(KEY_USER_STATUS, "");
     }
 
+    public static void setLoggedInUserId(Context context, String token) {
+        SharedPreferences.Editor editor = getSharedPreference(context).edit();
+        editor.putString(KEY_USER_ID, token);
+        editor.apply();
+    }
+
+    public static String getLoggedInUserId(Context context) {
+        return getSharedPreference(context).getString(KEY_USER_ID, "");
+    }
+
     public static void clearLoggedInUser(Context context) {
         SharedPreferences.Editor editor = getSharedPreference(context).edit();
         editor.remove(KEY_STATUS_LOGIN);
@@ -105,6 +116,8 @@ public class Preferences {
         editor.remove(KEY_USER_FOTO);
         editor.remove(KEY_USER_NAMA);
         editor.remove(KEY_USER_JABATAN);
+        editor.remove(KEY_USER_ID);
+        editor.remove(KEY_USER_STATUS);
         editor.apply();
     }
 }

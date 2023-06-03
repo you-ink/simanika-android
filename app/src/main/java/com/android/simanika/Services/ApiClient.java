@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     public static String getBaseUrl(){
-        return "http://192.168.0.106:8000";
+        return "http://192.168.1.7:8000";
     }
 
     private static Retrofit getRetrofit(Context context){

@@ -153,6 +153,14 @@ public class ArticleFragment extends Fragment {
                         // Tambahkan kode untuk melakukan sesuatu dengan articleData, seperti mengatur adapter RecyclerView
                         ArticleAdapter articleAdapter = new ArticleAdapter(articleData, rootview.getContext());
                         recyclerView.setAdapter(articleAdapter);
+
+                        if (dataList.size() == 0) {
+                            rootview.findViewById(R.id.article_list).setVisibility(View.GONE);
+                            rootview.findViewById(R.id.article_list_null).setVisibility(View.VISIBLE);
+                        } else {
+                            rootview.findViewById(R.id.article_list).setVisibility(View.VISIBLE);
+                            rootview.findViewById(R.id.article_list_null).setVisibility(View.GONE);
+                        }
                     } else {
                         Toast.makeText(rootview.getContext(), "Data Kosong", Toast.LENGTH_SHORT).show();
                     }

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,7 +92,10 @@ public class HomeFragment extends Fragment {
 
         if (!Preferences.getLoggedInUserStatus(rootView.getContext()).equalsIgnoreCase("1")) {
             TextView tv = rootView.findViewById(R.id.header_home_fragment);
-            tv.setText("Halo calon pengurus baru, tunggu notifikasi seputar wawancaramu disini!");
+            tv.setText("Halo calon pengurus baru, tunggu notifikasi seputar wawancaramu disini!\n\nJangan lupa untuk melengkapi datamu terlebih dahulu.\n");
+
+            LinearLayout ll = rootView.findViewById(R.id.home_section_meeting);
+            ll.setVisibility(View.GONE);
         }
 
         RecyclerView recyclerView = rootView.findViewById(R.id.article_list);
@@ -105,7 +109,7 @@ public class HomeFragment extends Fragment {
         recyclerView2.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
         recyclerView2.setHasFixedSize(false);
 
-       getNewRapat(recyclerView2);
+        getNewRapat(recyclerView2);
 
         return rootView;
     }
@@ -142,6 +146,14 @@ public class HomeFragment extends Fragment {
                         // Tambahkan kode untuk melakukan sesuatu dengan articleData, seperti mengatur adapter RecyclerView
                         HomeArticleAdapter articleAdapter = new HomeArticleAdapter(articleData, rootView.getContext());
                         recyclerView.setAdapter(articleAdapter);
+
+                        if (dataList.size() == 0) {
+                            rootView.findViewById(R.id.article_list).setVisibility(View.GONE);
+                            rootView.findViewById(R.id.article_list_null).setVisibility(View.VISIBLE);
+                        } else {
+                            rootView.findViewById(R.id.article_list).setVisibility(View.VISIBLE);
+                            rootView.findViewById(R.id.article_list_null).setVisibility(View.GONE);
+                        }
                     } else {
                         Toast.makeText(rootView.getContext(), "Data Kosong", Toast.LENGTH_SHORT).show();
                     }
@@ -192,6 +204,14 @@ public class HomeFragment extends Fragment {
                         // Tambahkan kode untuk melakukan sesuatu dengan articleData, seperti mengatur adapter RecyclerView
                         RapatAdapter rapatAdapter = new RapatAdapter(rapatData, rootView.getContext());
                         recyclerView.setAdapter(rapatAdapter);
+
+                        if (dataList.size() == 0) {
+                            rootView.findViewById(R.id.rapat_list).setVisibility(View.GONE);
+                            rootView.findViewById(R.id.rapat_list_null).setVisibility(View.VISIBLE);
+                        } else {
+                            rootView.findViewById(R.id.rapat_list).setVisibility(View.VISIBLE);
+                            rootView.findViewById(R.id.rapat_list_null).setVisibility(View.GONE);
+                        }
                     } else {
                         Toast.makeText(rootView.getContext(), "Data Kosong", Toast.LENGTH_SHORT).show();
                     }

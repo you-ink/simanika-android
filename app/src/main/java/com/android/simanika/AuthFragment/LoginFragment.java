@@ -124,6 +124,7 @@ public class LoginFragment extends Fragment {
                         Preferences.setLoggedInToken(getActivity().getBaseContext(), loginResponse.getData().getToken());
                         Preferences.setLoggedInStatus(getActivity().getBaseContext(), true);
 
+                        Preferences.setLoggedInUserId(getActivity().getBaseContext(), String.valueOf(loginResponse.getData().getUser().getId()));
                         Preferences.setLoggedInUserNama(getActivity().getBaseContext(), loginResponse.getData().getUser().getNama());
                         Preferences.setLoggedInUserFoto(getActivity().getBaseContext(), loginResponse.getData().getUser().getDetail_user().getFoto());
                         Preferences.setLoggedInUserJabatan(getActivity().getBaseContext(), loginResponse.getData().getUser().getDetail_user().getJabatan().getNama());

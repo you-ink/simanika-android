@@ -159,10 +159,17 @@ public class ProfileActivity extends AppCompatActivity {
                     angkatan.setText(userResponse.getAngkatan());
                     telp.setText(userResponse.getTelp());
                     profileName.setText(userResponse.getNama());
-                    profilBio.setText(userResponse.getDetail_user().getDivisi().getNama()+" - " + userResponse.getDetail_user().getJabatan().getNama());
+                    if (userResponse.getDetail_user().getDivisi() == null) {
+                        profilBio.setText(userResponse.getDetail_user().getJabatan().getNama());
+                    } else {
+                        profilBio.setText(userResponse.getDetail_user().getDivisi().getNama()+" - " + userResponse.getDetail_user().getJabatan().getNama());
+                    }
                     Picasso.get().load(ApiClient.getBaseUrl()+userResponse.getDetail_user().getFoto())
                             .transform(new CircleTransform())
                             .into((ImageView) findViewById(R.id.profile_foto));
+
+                    Preferences.setLoggedInUserFoto(ProfileActivity.this, userResponse.getDetail_user().getFoto());
+                    Preferences.setLoggedInUserNama(ProfileActivity.this, userResponse.getNama());
                 } else {
                     Toast.makeText(context, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                 }
