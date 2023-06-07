@@ -22,7 +22,7 @@ public class KelengkapanProfileActivity extends AppCompatActivity {
 
     private ImageView btnback;
     private EditText alamat;
-    private AppCompatButton btn_bukti_mahasiswa, btn_bukti_kesanggupan;
+    private AppCompatButton btn_bukti_mahasiswa, btn_bukti_kesanggupan, btn_website_himanika;
     private String url_bukti_mahasiswa, url_bukti_kesanggupan, nama_user;
 
 
@@ -62,6 +62,19 @@ public class KelengkapanProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String url = ApiClient.getBaseUrl()+url_bukti_kesanggupan;
+
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+
+                startActivity(intent);
+            }
+        });
+
+        btn_website_himanika = findViewById(R.id.btn_website_himanika);
+        btn_website_himanika.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = ApiClient.getBaseUrl();
 
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));

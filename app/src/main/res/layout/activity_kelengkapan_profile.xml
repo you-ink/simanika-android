@@ -130,5 +130,19 @@
             android:text="Anda dapat melengkapi profile anda menggunakan website resmi HIMANIKA."
             android:textColor="@color/white"/>
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_website_himanika"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_edit_profile"
+            android:backgroundTint="@color/main"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:text="Website HIMANIKA"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
     </LinearLayout>
 </LinearLayout>
