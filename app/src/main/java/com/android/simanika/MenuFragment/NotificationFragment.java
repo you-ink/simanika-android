@@ -2,8 +2,9 @@ package com.android.simanika.MenuFragment;
 
 import static android.content.ContentValues.TAG;
 
-import android.app.Fragment;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.simanika.Adapter.NotificationAdapter;
 import com.android.simanika.Adapter.NotificationData;
 import com.android.simanika.R;
 import com.android.simanika.Services.ApiClient;
@@ -84,17 +87,76 @@ public class NotificationFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootview.getContext()));
 
+        int requestCode = 1; // Misalnya, kode permintaan 1
+        Intent intent = new Intent(rootview.getContext(), NotificationFragment.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(rootview.getContext(), requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+
+        getNotifikasi(recyclerView);
+        getNewNotifikasi(recyclerView);
+
         return rootview;
     }
-    private void getNotifikasi(RecyclerView recyclerView, String search){
+
+    private void getNewNotifikasi(RecyclerView recyclerView){
+        Call<NotifikasiResponse> notifikasiResponseCall = ApiClient.getNotificationService(rootview.getContext()).getNewNotifikasi();
+        notifikasiResponseCall.enqueue(new Callback<NotifikasiResponse>() {
+            @Override
+            public void onResponse(Call<NotifikasiResponse> call, Response<NotifikasiResponse> response) {
+
+                if (response.isSuccessful()){
+                    NotifikasiResponse notifikasiResponse = response.body();
+                    if (notifikasiResponse != null) {
+                        List<NotifikasiResponse.Data> dataList = notifikasiResponse.getData();
+
+                        // Mengubah List menjadi array NotificationData[]
+                        NotificationData[] notificationData = new NotificationData[dataList.size()];
+
+                        for (int i = 0; i < dataList.size(); i++) {
+                            NotifikasiResponse.Data data = dataList.get(i);
+
+                            // Ambil data yang diperlukan dari objek data
+                            int id = data.getId();
+                            String judul = data.getJudul();
+                            String isi = data.getIsi();
+
+                            // Buat objek NotificationData dan tambahkan ke array
+                            notificationData[i] = new NotificationData(id, judul, isi);
+                        }
+
+                        // Tambahkan kode untuk melakukan sesuatu dengan notificationData, seperti mengatur adapter RecyclerView
+                        NotificationAdapter notificationAdapter = new NotificationAdapter(notificationData, rootview.getContext());
+                        recyclerView.setAdapter(notificationAdapter);
+
+                        if (dataList.size() == 0) {
+                            rootview.findViewById(R.id.article_list).setVisibility(View.GONE);
+                            rootview.findViewById(R.id.article_list_null).setVisibility(View.VISIBLE);
+                        } else {
+                            rootview.findViewById(R.id.article_list).setVisibility(View.VISIBLE);
+                            rootview.findViewById(R.id.article_list_null).setVisibility(View.GONE);
+                        }
+                    } else {
+                        Toast.makeText(rootview.getContext(), "Data Kosong", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(rootview.getContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotifikasiResponse> call, Throwable t) {
+                Log.e(TAG, "onFailure: "+t.getMessage());
+            }
+        });
+    }
+
+    private void getNotifikasi(RecyclerView recyclerView){
         ProgressDialog progressDialog = new ProgressDialog(rootview.getContext());
         progressDialog.setMessage("Loading..."); // Set message untuk dialog
         progressDialog.setCancelable(false); // Set apakah dialog bisa di-cancel atau tidak
 
         progressDialog.show(); // Menampilkan dialog
 
-        NotificationAdapter notificationAdapter = new NotificationAdapter(NotificationData, rootview.getContext());
-        recyclerView.setAdapter(notificationAdapter);
         Call<NotifikasiResponse> notifikasiResponseCall = ApiClient.getNotificationService(rootview.getContext()).getNotifikasi();
 
         notifikasiResponseCall.enqueue(new Callback<NotifikasiResponse>() {

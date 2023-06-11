@@ -10,16 +10,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.simanika.MenuFragment.ArticleFragment;
-import com.android.simanika.MenuFragment.NotificationFragment;
 import com.android.simanika.R;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
     NotificationData[] notificationData;
     Context context;
-    public NotificationAdapter(NotificationData[] notificationData, NotificationFragment activity) {
+    public NotificationAdapter(NotificationData[] notificationData, Context context) {
         this.notificationData = notificationData;
-        this.context = activity.getContext();
+        this.context = context;
     }
 
     @NonNull
