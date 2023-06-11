@@ -64,6 +64,12 @@ public class ApiClient {
         return rapatService;
     }
 
+    public static NotificationService    getNotificationService(Context context){
+        NotificationService notificationService = getRetrofit(context).create(NotificationService.class);
+
+        return notificationService;
+    }
+
 
     public static String getApiAuth() {
         return "Basic " + Base64.encodeToString("simanika_auth:$iM@n1K4_4utH".getBytes(), Base64.NO_WRAP);

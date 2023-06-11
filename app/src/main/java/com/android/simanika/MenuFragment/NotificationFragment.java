@@ -1,17 +1,29 @@
 package com.android.simanika.MenuFragment;
 
+import static android.content.ContentValues.TAG;
+
+import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.simanika.Adapter.NotificationAdapter;
 import com.android.simanika.Adapter.NotificationData;
 import com.android.simanika.R;
+import com.android.simanika.Services.ApiClient;
+import com.android.simanika.Services.HTTP.NotifikasiResponse;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,7 +64,7 @@ public class NotificationFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+ 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,15 +84,68 @@ public class NotificationFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootview.getContext()));
 
-        NotificationData[] notificationData = new NotificationData[]{
-                new NotificationData(1, "Ini Adalah Judul Artikel 1 Yang Akan Ditampilkan.", "BPH"),
-                new NotificationData(2, "Ini Adalah Judul Artikel 2 Yang Akan Ditampilkan.", "Humas"),
-                new NotificationData(3, "Ini Adalah Judul Artikel 3 Yang Akan Ditampilkan.", "Kominfo"),
-                  };
-
-        NotificationAdapter notificationAdapter = new NotificationAdapter(notificationData,this);
-        recyclerView.setAdapter(notificationAdapter);
-
         return rootview;
+    }
+    private void getNotifikasi(RecyclerView recyclerView, String search){
+        ProgressDialog progressDialog = new ProgressDialog(rootview.getContext());
+        progressDialog.setMessage("Loading..."); // Set message untuk dialog
+        progressDialog.setCancelable(false); // Set apakah dialog bisa di-cancel atau tidak
+
+        progressDialog.show(); // Menampilkan dialog
+
+        NotificationAdapter notificationAdapter = new NotificationAdapter(NotificationData, rootview.getContext());
+        recyclerView.setAdapter(notificationAdapter);
+        Call<NotifikasiResponse> notifikasiResponseCall = ApiClient.getNotificationService(rootview.getContext()).getNotifikasi();
+
+        notifikasiResponseCall.enqueue(new Callback<NotifikasiResponse>() {
+            @Override
+            public void onResponse(Call<NotifikasiResponse> call, Response<NotifikasiResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()){
+                    NotifikasiResponse notifikasiResponse = response.body();
+                    if (notifikasiResponse != null) {
+                        List<NotifikasiResponse.Data> dataList = notifikasiResponse.getData();
+
+                        // Mengubah List menjadi array NotifikasiData[]
+                        NotificationData[] notificationData = new NotificationData[dataList.size()];
+
+                        for (int i = 0; i < dataList.size(); i++) {
+                            NotifikasiResponse.Data data = dataList.get(i);
+
+                            // Ambil data yang diperlukan dari objek data
+                            int id = data.getId();
+                            String judul = data.getJudul();
+                            String isi = data.getIsi();
+
+                            // Buat objek NotificationData dan tambahkan ke array
+                            notificationData[i] = new NotificationData(id, judul, isi);
+                        }
+
+                        // Tambahkan kode untuk melakukan sesuatu dengan notificationData, seperti mengatur adapter RecyclerView
+                        NotificationAdapter notificationAdapter = new NotificationAdapter(notificationData, rootview.getContext());
+                        recyclerView.setAdapter(notificationAdapter);
+
+                        if (dataList.size() == 0) {
+                            rootview.findViewById(R.id.notification_list).setVisibility(View.GONE);
+                        } else {
+                            rootview.findViewById(R.id.notification_list).setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(rootview.getContext(), "Data Kosong", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(rootview.getContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotifikasiResponse> call, Throwable t) {
+                progressDialog.dismiss();
+
+                String errorMessage = t.getMessage();
+                Log.e(TAG, "onFailure: "+t.getMessage());
+            }
+        });
     }
 }
