@@ -116,7 +116,7 @@ public class BackgroundNotificationService extends Service {
         Log.d("Pusher", "Received message: " + message);
 
         JSONObject jsonObject = null;
-        String user_id = null;
+        String user_id = "";
         try {
             jsonObject = new JSONObject(message);
             user_id = jsonObject.getString("user_id");
