@@ -93,62 +93,62 @@ public class NotificationFragment extends Fragment {
 
 
         getNotifikasi(recyclerView);
-        getNewNotifikasi(recyclerView);
+//        getNewNotifikasi(recyclerView);
 
         return rootview;
     }
 
-    private void getNewNotifikasi(RecyclerView recyclerView){
-        Call<NotifikasiResponse> notifikasiResponseCall = ApiClient.getNotificationService(rootview.getContext()).getNewNotifikasi();
-        notifikasiResponseCall.enqueue(new Callback<NotifikasiResponse>() {
-            @Override
-            public void onResponse(Call<NotifikasiResponse> call, Response<NotifikasiResponse> response) {
-
-                if (response.isSuccessful()){
-                    NotifikasiResponse notifikasiResponse = response.body();
-                    if (notifikasiResponse != null) {
-                        List<NotifikasiResponse.Data> dataList = notifikasiResponse.getData();
-
-                        // Mengubah List menjadi array NotificationData[]
-                        NotificationData[] notificationData = new NotificationData[dataList.size()];
-
-                        for (int i = 0; i < dataList.size(); i++) {
-                            NotifikasiResponse.Data data = dataList.get(i);
-
-                            // Ambil data yang diperlukan dari objek data
-                            int id = data.getId();
-                            String judul = data.getJudul();
-                            String isi = data.getIsi();
-
-                            // Buat objek NotificationData dan tambahkan ke array
-                            notificationData[i] = new NotificationData(id, judul, isi);
-                        }
-
-                        // Tambahkan kode untuk melakukan sesuatu dengan notificationData, seperti mengatur adapter RecyclerView
-                        NotificationAdapter notificationAdapter = new NotificationAdapter(notificationData, rootview.getContext());
-                        recyclerView.setAdapter(notificationAdapter);
-
-                        if (dataList.size() == 0) {
-                            rootview.findViewById(R.id.article_list).setVisibility(View.GONE);
-                            rootview.findViewById(R.id.article_list_null).setVisibility(View.VISIBLE);
-                        } else {
-                            rootview.findViewById(R.id.article_list).setVisibility(View.VISIBLE);
-                            rootview.findViewById(R.id.article_list_null).setVisibility(View.GONE);
-                        }
-                    } else {
-                        Toast.makeText(rootview.getContext(), "Data Kosong", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(rootview.getContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<NotifikasiResponse> call, Throwable t) {
-                Log.e(TAG, "onFailure: "+t.getMessage());
-            }
-        });
-    }
+//    private void getNewNotifikasi(RecyclerView recyclerView){
+//        Call<NotifikasiResponse> notifikasiResponseCall = ApiClient.getNotificationService(rootview.getContext()).getNewNotifikasi();
+//        notifikasiResponseCall.enqueue(new Callback<NotifikasiResponse>() {
+//            @Override
+//            public void onResponse(Call<NotifikasiResponse> call, Response<NotifikasiResponse> response) {
+//
+//                if (response.isSuccessful()){
+//                    NotifikasiResponse notifikasiResponse = response.body();
+//                    if (notifikasiResponse != null) {
+//                        List<NotifikasiResponse.Data> dataList = notifikasiResponse.getData();
+//
+//                        // Mengubah List menjadi array NotificationData[]
+//                        NotificationData[] notificationData = new NotificationData[dataList.size()];
+//
+//                        for (int i = 0; i < dataList.size(); i++) {
+//                            NotifikasiResponse.Data data = dataList.get(i);
+//
+//                            // Ambil data yang diperlukan dari objek data
+//                            int id = data.getId();
+//                            String judul = data.getJudul();
+//                            String isi = data.getIsi();
+//
+//                            // Buat objek NotificationData dan tambahkan ke array
+//                            notificationData[i] = new NotificationData(id, judul, isi);
+//                        }
+//
+//                        // Tambahkan kode untuk melakukan sesuatu dengan notificationData, seperti mengatur adapter RecyclerView
+//                        NotificationAdapter notificationAdapter = new NotificationAdapter(notificationData, rootview.getContext());
+//                        recyclerView.setAdapter(notificationAdapter);
+//
+//                        if (dataList.size() == 0) {
+//                            rootview.findViewById(R.id.article_list).setVisibility(View.GONE);
+//                            rootview.findViewById(R.id.article_list_null).setVisibility(View.VISIBLE);
+//                        } else {
+//                            rootview.findViewById(R.id.article_list).setVisibility(View.VISIBLE);
+//                            rootview.findViewById(R.id.article_list_null).setVisibility(View.GONE);
+//                        }
+//                    } else {
+//                        Toast.makeText(rootview.getContext(), "Data Kosong", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(rootview.getContext(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<NotifikasiResponse> call, Throwable t) {
+//                Log.e(TAG, "onFailure: "+t.getMessage());
+//            }
+//        });
+//    }
 
     private void getNotifikasi(RecyclerView recyclerView){
         ProgressDialog progressDialog = new ProgressDialog(rootview.getContext());

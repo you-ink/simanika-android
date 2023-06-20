@@ -15,6 +15,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.android.simanika.MainActivity;
 import com.android.simanika.R;
+import com.android.simanika.Services.SharedPreference.Preferences;
 import com.pusher.client.Pusher;
 import com.pusher.client.PusherOptions;
 import com.pusher.client.channel.Channel;
@@ -33,7 +34,6 @@ public class BackgroundNotificationService extends Service {
     private static final String PUSHER_EVENT_NAME = "simanika-event";
 
     private Pusher pusher;
-    private Channel channel;
 
     private NotificationCompat.Builder notificationBuilder;
     private NotificationManager notificationManager;
@@ -88,7 +88,7 @@ public class BackgroundNotificationService extends Service {
     private void connectToPusher() {
         PusherOptions options = new PusherOptions().setCluster("ap1");
         pusher = new Pusher(PUSHER_API_KEY, options);
-        channel = pusher.subscribe(PUSHER_CHANNEL_NAME);
+        Channel channel = pusher.subscribe(PUSHER_CHANNEL_NAME);
 
         channel.bind(PUSHER_EVENT_NAME, new SubscriptionEventListener() {
             @Override
@@ -116,22 +116,34 @@ public class BackgroundNotificationService extends Service {
         Log.d("Pusher", "Received message: " + message);
 
         JSONObject jsonObject = null;
+        String user_id = null;
         try {
             jsonObject = new JSONObject(message);
-            message = jsonObject.getString("message");
+            user_id = jsonObject.getString("message");
+            message = jsonObject.getString("user_id");
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
 
-        showNotification("Notifikasi Baru", message);
+        if (Integer.parseInt(Preferences.getLoggedInUserStatus(getBaseContext())) != 1) {
+            if (user_id.equals(Preferences.getLoggedInUserId(getBaseContext()))) {
+                showNotification(message);
+            }
+        } else if (Preferences.getLoggedInUserDivisiId(getBaseContext()) != null && !Preferences.getLoggedInUserDivisiId(getBaseContext()).equals("1")) {
+            if (user_id.isEmpty() || user_id.equals(Preferences.getLoggedInUserId(getBaseContext()))) {
+                showNotification(message);
+            }
+        } else {
+            showNotification(message);
+        }
     }
 
-    private void showNotification(String title, String message) {
+    private void showNotification(String message) {
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
         // Update konten notifikasi
-        notificationBuilder.setContentTitle(title)
+        notificationBuilder.setContentTitle("Notifikasi Baru")
                 .setContentText(message)
                 .setContentIntent(pendingIntent);
 

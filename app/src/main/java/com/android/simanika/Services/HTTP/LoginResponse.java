@@ -101,7 +101,16 @@ public class LoginResponse {
                 private String foto;
                 private int user_id;
                 private int jabatan_id;
+                private int divisi_id;
                 private Jabatan jabatan;
+
+                public int getDivisi_id() {
+                    return divisi_id;
+                }
+
+                public void setDivisi_id(int divisi_id) {
+                    this.divisi_id = divisi_id;
+                }
 
                 public int getId() {
                     return id;

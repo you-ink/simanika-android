@@ -13,6 +13,7 @@ public class Preferences {
                         KEY_USER_NAMA = "USER_NAMA",
                         KEY_USER_JABATAN = "USER_JABATAN",
                         KEY_USER_STATUS = "USER_STATUS",
+                        KEY_USER_DIVISI_ID = "USER_DIVISI_ID",
                         KEY_USER_ID = "USER_ID";
 
     private static SharedPreferences getSharedPreference(Context context) {
@@ -97,6 +98,16 @@ public class Preferences {
 
     public static String getLoggedInUserStatus(Context context) {
         return getSharedPreference(context).getString(KEY_USER_STATUS, "");
+    }
+
+    public static void setLoggedInUserDivisiId(Context context, String token) {
+        SharedPreferences.Editor editor = getSharedPreference(context).edit();
+        editor.putString(KEY_USER_DIVISI_ID, token);
+        editor.apply();
+    }
+
+    public static String getLoggedInUserDivisiId(Context context) {
+        return getSharedPreference(context).getString(KEY_USER_DIVISI_ID, "");
     }
 
     public static void setLoggedInUserId(Context context, String token) {
