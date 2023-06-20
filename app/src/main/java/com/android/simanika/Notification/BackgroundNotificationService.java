@@ -119,8 +119,8 @@ public class BackgroundNotificationService extends Service {
         String user_id = null;
         try {
             jsonObject = new JSONObject(message);
-            user_id = jsonObject.getString("message");
-            message = jsonObject.getString("user_id");
+            user_id = jsonObject.getString("user_id");
+            message = jsonObject.getString("message");
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
